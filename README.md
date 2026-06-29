@@ -6,7 +6,28 @@ By sitting between your application and the LLM provider, Konsta automatically o
 
 ---
 
+## 📈 Efficiency Metrics & Economics
+
+Konsta transforms the economics of long-context LLM applications by replacing expensive "raw" tokens with high-density "distilled" tokens.
+
+| Metric | Raw Request | With Konsta | Improvement |
+| :--- | :--- | :--- | :--- |
+| **Context Volume** | 100% (Full History) | 30% - 60% | **40-70% Reduction** |
+| **Noise Level** | High (Redundant) | Low (Concentrated) | **Significant $\downarrow$** |
+| **Cost (Avg)** | $1.00 (Premium Model) | $0.20 - $0.40 | **60-80% Savings** |
+
+### 💰 The "Distillation Arbitrage"
+Why use Konsta? Because the cost of compressing context with a fast model is negligible compared to the cost of processing that same context in a flagship model.
+
+**Example Scenario:**
+- **Target Model:** Claude 3.5 Sonnet / GPT-4o (Expensive)
+- **Compressor:** Gemma-4-31B via Cerebras (Ultra-fast & Cheap)
+- **The Win:** You pay a fraction of a cent to compress 10k tokens down to 2k, then pay the premium model only for those 2k tokens. **The ROI is immediate.**
+
+---
+
 ## 🚀 The Value Proposition
+
 
 ### 💰 Cost Reduction
 Most LLM providers charge per token. For applications with long conversation histories, costs scale quadratically. Konsta reduces the "token tax" by:
