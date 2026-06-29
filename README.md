@@ -20,7 +20,7 @@ Konsta transforms the economics of long-context LLM applications by replacing ex
 Why use Konsta? Because the cost of compressing context with a fast model is negligible compared to the cost of processing that same context in a flagship model.
 
 **Example Scenario:**
-- **Target Model:** Claude 3.5 Sonnet / GPT-4o (Expensive)
+- **Target Model:** Claude Opus 4.8 / GPT-5.5 (Expensive)
 - **Compressor:** Gemma-4-31B via Cerebras (Ultra-fast & Cheap)
 - **The Win:** You pay a fraction of a cent to compress 10k tokens down to 2k, then pay the premium model only for those 2k tokens. **The ROI is immediate.**
 
