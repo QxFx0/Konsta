@@ -1,0 +1,14 @@
+{
+  "content": {
+    "model": "codestral-latest",
+    "max_tokens": 4096,
+    "temperature": 0.5,
+    "messages": [
+      {
+        "role": "system",
+        "content": "Distilled Context: Привет, как дела?"
+      }
+    ],
+    "stream": true
+  }
+}

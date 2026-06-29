@@ -1,0 +1,25 @@
+{
+  "url": "https://api.mistral.ai/v1/chat/completions",
+  "status": 200,
+  "headers": {
+    "Date": "Mon, 29 Jun 2026 13:55:38 GMT",
+    "Content-Type": "text/event-stream; charset=utf-8",
+    "Transfer-Encoding": "chunked",
+    "Connection": "keep-alive",
+    "mistral-correlation-id": "019f13aa-0a74-7aea-b7bc-d9cd63521706",
+    "x-kong-request-id": "019f13aa-0a74-7aea-b7bc-d9cd63521706",
+    "x-max-retry-attempts-reached": "false",
+    "x-envoy-upstream-service-time": "175",
+    "Server": "cloudflare",
+    "access-control-allow-origin": "*",
+    "x-kong-upstream-latency": "176",
+    "x-kong-proxy-latency": "15",
+    "cf-cache-status": "DYNAMIC",
+    "set-cookie": "__cf_bm=oYK0Aw6q4IijfdvsIqUBoAB6vzQanugCCUV0rs3jKos-1782741338.733424-1.0.1.1-00K04CP2KIky9Wtc2.dhb6Q8RiNqxPAhEg2cODfiXvtc4BibzK207Hl1okAuHVH2X3vs9adtnaWkb8itZ5osnqrFHi.xrmZCUms1y0rZ4Ch5UhzS.zkTWdOtgNX5lfXx; HttpOnly; SameSite=None; Secure; Path=/; Domain=mistral.ai; Expires=Mon, 29 Jun 2026 14:25:38 GMT, _cfuvid=8XYbxrxVPzOioAZx7tmVS.zxM2CfmlO18YKvPcfuBvM-1782741338.733424-1.0.1.1-9D3ZgH7uVu4xXeUBB1eQFWkripDzVabshUphFeyB05I; HttpOnly; SameSite=None; Secure; Path=/; Domain=mistral.ai",
+    "Strict-Transport-Security": "max-age=15552000; includeSubDomains; preload",
+    "X-Content-Type-Options": "nosniff",
+    "CF-RAY": "a1356e171c3eb8a4-ARN",
+    "alt-svc": "h3=\":443\"; ma=86400"
+  },
+  "content": "data: {\"id\":\"2977a97a968b4eb292c6c4b6cdac5a77\",\"object\":\"chat.completion.chunk\",\"created\":1782741338,\"model\":\"codestral-latest\",\"choices\":[{\"index\":0,\"delta\":{\"role\":\"assistant\",\"content\":\"\"},\"finish_reason\":null}]}\n\ndata: {\"id\":\"2977a97a968b4eb292c6c4b6cdac5a77\",\"object\":\"chat.completion.chunk\",\"created\":1782741338,\"model\":\"codestral-latest\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"Russian\"},\"finish_reason\":null}],\"p\":\"abcdefgh\"}\n\ndata: {\"id\":\"2977a97a968b4eb292c6c4b6cdac5a77\",\"object\":\"chat.completion.chunk\",\"created\":1782741338,\"model\":\"codestral-latest\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\" greeting\"},\"finish_reason\":null}],\"p\":\"abcdefghijklmnopqrstu\"}\n\ndata: {\"id\":\"2977a97a968b4eb292c6c4b6cdac5a77\",\"object\":\"chat.completion.chunk\",\"created\":1782741338,\"model\":\"codestral-latest\",\"choices\":[{\"index\":0,\"delta\":{\"content\":\"\"},\"finish_reason\":\"stop\"}],\"usage\":{\"prompt_tokens\":536,\"total_tokens\":539,\"completion_tokens\":3,\"prompt_tokens_details\":{\"cached_tokens\":0}},\"p\":\"abcdefghijklmn\"}\n\ndata: [DONE]\n\n"
+}

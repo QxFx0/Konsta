@@ -1,0 +1,14 @@
+{
+  "agents": {
+    "reviewer": {
+      "model": "auto",
+      "role": "reviewer"
+    },
+    "writer": {
+      "model": "auto",
+      "role": "writer"
+    }
+  },
+  "max_revisions": 3,
+  "version": "0.2.0"
+}

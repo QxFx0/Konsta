@@ -1,0 +1,11 @@
+{
+  "url": "https://api.mistral.ai/v1/chat/completions",
+  "headers": {
+    "user-agent": "curl/8.21.0",
+    "accept": "*/*",
+    "content-type": "application/json",
+    "authorization": "Bearer 7kQSxl5DeEB2qWFIZqZ3k2UjbIuQdjm0",
+    "content-length": "136"
+  },
+  "content": "{\n       \"model\": \"mistral-tiny\",\n       \"messages\": [{\"role\": \"user\", \"content\": \"Привет! Ты меня слышишь?\"}]\n     }"
+}

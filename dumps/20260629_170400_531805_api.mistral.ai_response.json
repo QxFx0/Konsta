@@ -1,0 +1,29 @@
+{
+  "url": "https://api.mistral.ai/v1/chat/completions",
+  "status": 200,
+  "headers": {
+    "date": "Mon, 29 Jun 2026 14:04:00 GMT",
+    "content-type": "application/json",
+    "content-length": "519",
+    "mistral-correlation-id": "019f13b1-b00e-71de-b492-ae0732c51fe3",
+    "x-kong-request-id": "019f13b1-b00e-71de-b492-ae0732c51fe3",
+    "x-max-retry-attempts-reached": "false",
+    "x-ratelimit-limit-tokens-minute": "625000",
+    "x-ratelimit-remaining-tokens-minute": "624933",
+    "x-ratelimit-tokens-query-cost": "67",
+    "x-ratelimit-limit-req-minute": "188",
+    "x-ratelimit-remaining-req-minute": "187",
+    "x-envoy-upstream-service-time": "700",
+    "server": "cloudflare",
+    "access-control-allow-origin": "*",
+    "x-kong-upstream-latency": "701",
+    "x-kong-proxy-latency": "17",
+    "cf-cache-status": "DYNAMIC",
+    "set-cookie": "__cf_bm=aWkBDjkDkWs71arJ4FIbLG9xizGk26fjHd8IXSYDPBQ-1782741839.8816931-1.0.1.1-xsGGCdappqUFF5Lz1.TAg.kVaXyQL_Nv_O2VJ7XIZxHM19P_qDX.BomyzVbbYxgX1H_1PvGRlWtK_flUoA5yCu63Q.kVOfD9Ko4fqtPbrH9wmTdVz9xok4FaXbBiGrEt; HttpOnly; SameSite=None; Secure; Path=/; Domain=mistral.ai; Expires=Mon, 29 Jun 2026 14:34:00 GMT, _cfuvid=vbXPC8jh0fK3cWxXUdiLx.StX6zq6hWBUIGFqPuwPVA-1782741839.8816931-1.0.1.1-lwQaycWRLD3vFFZMtC3MDv5VwPlQva8FwFvXOMFm9WM; HttpOnly; SameSite=None; Secure; Path=/; Domain=mistral.ai",
+    "strict-transport-security": "max-age=15552000; includeSubDomains; preload",
+    "x-content-type-options": "nosniff",
+    "cf-ray": "a1357a534b77516a-ARN",
+    "alt-svc": "h3=\":443\"; ma=86400"
+  },
+  "content": "{\"id\":\"8ea77fcc5f394d0eb13ed66a20f7d95a\",\"created\":1782741840,\"model\":\"ministral-8b-latest\",\"usage\":{\"prompt_tokens\":19,\"total_tokens\":67,\"completion_tokens\":48,\"prompt_tokens_details\":{\"cached_tokens\":0}},\"object\":\"chat.completion\",\"choices\":[{\"index\":0,\"finish_reason\":\"stop\",\"message\":{\"role\":\"assistant\",\"tool_calls\":null,\"content\":\"**Assistant:**\\nHello! Yes, I can hear you. How can I assist you today? 😊\\n\\n*(If you'd like to share something specific—like a question, topic, or task—I’m all ears!)*\"}}]}"
+}

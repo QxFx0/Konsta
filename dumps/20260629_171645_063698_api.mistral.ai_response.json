@@ -1,0 +1,31 @@
+{
+  "url": "https://api.mistral.ai/v1/chat/completions",
+  "status": 200,
+  "headers": {
+    "Date": "Mon, 29 Jun 2026 14:16:44 GMT",
+    "Content-Type": "application/json",
+    "Transfer-Encoding": "chunked",
+    "Connection": "keep-alive",
+    "mistral-correlation-id": "019f13bd-59a8-73ab-a728-34f1ee7b8e6e",
+    "x-kong-request-id": "019f13bd-59a8-73ab-a728-34f1ee7b8e6e",
+    "x-max-retry-attempts-reached": "false",
+    "x-ratelimit-limit-tokens-minute": "625000",
+    "x-ratelimit-remaining-tokens-minute": "624953",
+    "x-ratelimit-tokens-query-cost": "47",
+    "x-ratelimit-limit-req-minute": "188",
+    "x-ratelimit-remaining-req-minute": "187",
+    "x-envoy-upstream-service-time": "588",
+    "Server": "cloudflare",
+    "access-control-allow-origin": "*",
+    "x-kong-upstream-latency": "589",
+    "x-kong-proxy-latency": "18",
+    "cf-cache-status": "DYNAMIC",
+    "set-cookie": "__cf_bm=lLAPV8_6UM6lceP8UHZefHrdLb4dNtra5mGMByukz4U-1782742604.190604-1.0.1.1-7oi_dEWkHFjLwwhirdlQ36sc57FR8po9ytrqAPiSDOp1o79beXQ0emKRSQ1lOMr5ASiLqj8c3UsaLQDU3afxnxAY7bKZG.mjzi.3iK0kmCs0biFSmT8rUz1036Y7Y5O8; HttpOnly; SameSite=None; Secure; Path=/; Domain=mistral.ai; Expires=Mon, 29 Jun 2026 14:46:44 GMT, _cfuvid=lSx2k70j3QL7KRzTGiG7elEFd.1cz4CczMfRUFzOZ5E-1782742604.190604-1.0.1.1-NcovMmibeAiUQibeaTs3pnyX.FZCgjHnWO9BJ0DwP20; HttpOnly; SameSite=None; Secure; Path=/; Domain=mistral.ai",
+    "Strict-Transport-Security": "max-age=15552000; includeSubDomains; preload",
+    "X-Content-Type-Options": "nosniff",
+    "Content-Encoding": "br",
+    "CF-RAY": "a1358cfc29c44434-ARN",
+    "alt-svc": "h3=\":443\"; ma=86400"
+  },
+  "content": "{\"id\":\"d495a460636d47a9b9adb9615e2e635b\",\"created\":1782742604,\"model\":\"ministral-8b-latest\",\"usage\":{\"prompt_tokens\":14,\"total_tokens\":47,\"completion_tokens\":33,\"prompt_tokens_details\":{\"cached_tokens\":0}},\"object\":\"chat.completion\",\"choices\":[{\"index\":0,\"finish_reason\":\"stop\",\"message\":{\"role\":\"assistant\",\"tool_calls\":null,\"content\":\"Привет! 😊 Как я могу помочь тебе сегодня? Расскажи, что тебя интересует или чем могу быть полезен!\"}}]}"
+}

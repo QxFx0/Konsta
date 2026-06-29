@@ -1,0 +1,16 @@
+{
+  "url": "https://api.githubcopilot.com/models",
+  "status": 403,
+  "headers": {
+    "Content-Security-Policy": "default-src 'none'; sandbox",
+    "Content-Type": "text/plain; charset=utf-8",
+    "Strict-Transport-Security": "max-age=31536000",
+    "X-Content-Type-Options": "nosniff",
+    "x-copilot-service-request-id": "01fcc2a2-2ecc-488f-9ed1-15b2ea36707d",
+    "Date": "Mon, 29 Jun 2026 14:06:12 GMT",
+    "Content-Length": "25",
+    "x-github-backend": "Kubernetes",
+    "X-GitHub-Request-Id": "847E:2A97B2:22B292F:25644BC:6A427BD4"
+  },
+  "content": "forbidden: access denied\n"
+}

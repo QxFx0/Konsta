@@ -1,0 +1,11 @@
+{
+  "content": {
+    "model": "mistral-tiny",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Distilled Context: User greets and asks if the assistant can hear them."
+      }
+    ]
+  }
+}

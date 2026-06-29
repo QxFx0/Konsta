@@ -1,0 +1,13 @@
+{
+  "url": "https://models.dev/api.json",
+  "headers": {
+    "User-Agent": "opencode/latest/1.17.10/cli",
+    "b3": "d9248447cb52985ffbf946b0c261a2fd-790b1caf3bf12e8f-1-1d9f2060fc140fad",
+    "traceparent": "00-d9248447cb52985ffbf946b0c261a2fd-790b1caf3bf12e8f-01",
+    "Connection": "keep-alive",
+    "Accept": "*/*",
+    "Host": "models.dev",
+    "Accept-Encoding": "gzip, deflate, br, zstd"
+  },
+  "content": ""
+}

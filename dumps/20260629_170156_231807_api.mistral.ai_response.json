@@ -1,0 +1,29 @@
+{
+  "url": "https://api.mistral.ai/v1/chat/completions",
+  "status": 200,
+  "headers": {
+    "date": "Mon, 29 Jun 2026 14:01:56 GMT",
+    "content-type": "application/json",
+    "content-length": "639",
+    "mistral-correlation-id": "019f13af-c9bc-7a98-ab22-c565d22b8baa",
+    "x-kong-request-id": "019f13af-c9bc-7a98-ab22-c565d22b8baa",
+    "x-max-retry-attempts-reached": "false",
+    "x-ratelimit-limit-tokens-minute": "625000",
+    "x-ratelimit-remaining-tokens-minute": "624927",
+    "x-ratelimit-tokens-query-cost": "73",
+    "x-ratelimit-limit-req-minute": "188",
+    "x-ratelimit-remaining-req-minute": "187",
+    "x-envoy-upstream-service-time": "846",
+    "server": "cloudflare",
+    "access-control-allow-origin": "*",
+    "x-kong-upstream-latency": "846",
+    "x-kong-proxy-latency": "13",
+    "cf-cache-status": "DYNAMIC",
+    "set-cookie": "__cf_bm=i5fw9dD.bsNYAb7zQM81wGIo9XyWSgAZ7h8KoPfbcak-1782741715.3764725-1.0.1.1-RWAF6TcX4jdm1IlMoHHu2Wnp.dvbRH2oj9KtoYVjyObsNngrBFv_mjzG2AQAa3gd8NPl7hU_E1KJ5klI4vda7BrBJbZpbMj4BuP7GMnFUJkwFysibW3ky1dHhNNg0Cr4; HttpOnly; SameSite=None; Secure; Path=/; Domain=mistral.ai; Expires=Mon, 29 Jun 2026 14:31:56 GMT, _cfuvid=oT8_P68Ik9I8dzBvRirNBFN_IFgblKs.67NKtq2u4ew-1782741715.3764725-1.0.1.1-nVTcPb3fGjiAKFEupucAhAv6L0WlW62D05zaTKggq6U; HttpOnly; SameSite=None; Secure; Path=/; Domain=mistral.ai",
+    "strict-transport-security": "max-age=15552000; includeSubDomains; preload",
+    "x-content-type-options": "nosniff",
+    "cf-ray": "a13577491d19ae05-ARN",
+    "alt-svc": "h3=\":443\"; ma=86400"
+  },
+  "content": "{\"id\":\"248f2402596d45d7bb6e22a2f716872d\",\"created\":1782741715,\"model\":\"ministral-8b-latest\",\"usage\":{\"prompt_tokens\":12,\"total_tokens\":73,\"completion_tokens\":61,\"prompt_tokens_details\":{\"cached_tokens\":0}},\"object\":\"chat.completion\",\"choices\":[{\"index\":0,\"finish_reason\":\"stop\",\"message\":{\"role\":\"assistant\",\"tool_calls\":null,\"content\":\"Привет! 😊 Да, я тебя слышу! Как я могу помочь тебе сегодня? У тебя есть вопросы, идеи или просто хочется поболтать? 💬\\n\\n(Если что-то не так — дай знать, я исправлюсь!)\"}}]}"
+}
