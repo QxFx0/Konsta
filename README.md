@@ -52,32 +52,82 @@ Konsta implements a three-stage compression pipeline:
 
 ---
 
-## 📦 Quick Start (Demo Mode)
+## 🛠 How It Works
 
-To showcase the compression magic without configuring a full proxy, use the Demo CLI:
+Konsta implements a three-stage compression pipeline:
 
-### 1. Installation
+1. **Semantic Layer (Local)**: Uses `all-MiniLM-L6-v2` to identify and remove semantically identical messages.
+2. **Distillation Layer (Remote)**: A specialized "compressor" LLM rewrites the remaining context into a dense, summarized format.
+3. **Transparent Proxy**: Acts as a MITM proxy, modifying requests on-the-fly and forwarding them to providers like Mistral, OpenAI, or Anthropic.
+
+---
+
+## 🚀 Getting Started (Step-by-Step)
+
+### 1. Clone the Repository
 ```bash
-pip install -r requirements.txt
-pip install rich httpx
+git clone https://github.com/QxFx0/Konsta.git
+cd Konsta
 ```
 
-### 2. Run the Demo
+### 2. Environment Setup
+It is recommended to use a virtual environment:
 ```bash
-export LLM_API_KEY="your_cerebras_key"
+python3 -m venv venv
+source venv/bin/activate  # Linux/macOS
+# venv\Scripts\activate    # Windows
+```
+
+### 3. Install Dependencies
+Konsta uses `sentence-transformers` and `torch` for local semantic analysis.
+
+**For CPU only (Standard):**
+```bash
+pip install -r requirements.txt
+```
+
+**For GPU acceleration (Recommended for high load):**
+Install the CUDA-enabled version of PyTorch first:
+```bash
+pip install torch --index-url https://download.pytorch.org/whl/cu121
+pip install -r requirements.txt
+```
+
+### 4. Configuration & API Keys
+Konsta is configured via environment variables. You can set them in your terminal or create a `.env` file in the root directory.
+
+**Required Keys:**
+- `LLM_API_KEY`: Your **Cerebras** API key (used for the Gemma-4-31B compressor).
+- `TARGET_API_KEY`: (Optional) Your key for the target provider (OpenAI, Mistral, Anthropic), though most users keep these in their application side.
+
+**Example setup:**
+```bash
+export LLM_API_KEY="your_cerebras_api_key_here"
+# Add other provider keys if needed by your app
+```
+
+---
+
+## 📦 Using Konsta
+
+### Option A: The Demo CLI (Fastest way to test)
+Perfect for seeing how a prompt is compressed without setting up a proxy.
+```bash
 python3 -m demo.demo_cli
 ```
 
-### 3. Run as a Proxy
+### Option B: Full Transparent Proxy
+Run Konsta as a middleware. It will intercept traffic and compress it on the fly.
 ```bash
-export LLM_API_KEY="your_cerebras_key"
 python3 -m src.main
 ```
-Then point your application to `http://127.0.0.1:8080`.
+- **Proxy Address:** `http://127.0.0.1:8080`
+- **Integration:** Point your LLM client/application to this address instead of the provider's direct URL.
 
 ---
 
 ## 🏗 Project Structure
+
 
 - `src/`: The core engine.
   - `proxy_core.py`: The MITM proxy logic (powered by `mitmproxy`).
