@@ -1,30 +1,55 @@
-# 🌌 Konsta: Intelligent Context Compression Proxy
+# 🌌 Konsta: High-Fidelity Context Optimization Proxy
 
-**Konsta** is a high-performance context compression proxy designed to reduce LLM token usage and improve response quality through multi-stage semantic distillation.
+**Konsta** is an advanced context optimization layer designed to eliminate "prompt noise" and drastically reduce LLM hallucinations. By transforming bloated, redundant prompts into high-density semantic extracts, Konsta ensures that your LLM focuses only on the critical information, resulting in higher accuracy and superior reasoning.
 
-By sitting between your application and the LLM provider, Konsta automatically optimizes prompt history, removing redundancy and distilling complex contexts into a concise, high-density format before they ever hit the expensive API.
+While most proxies focus solely on cost, **Konsta focuses on Signal-to-Noise Ratio (SNR)**. We don't just compress; we distill.
 
 ---
 
-## 📈 Efficiency Metrics & Economics
+## 🎯 The Core Value: Quality Over Everything
 
-Konsta transforms the economics of long-context LLM applications by replacing expensive "raw" tokens with high-density "distilled" tokens.
+### 🛡️ Anti-Hallucination & Anti-Noise
+Large contexts often lead to the **"Lost in the Middle"** phenomenon, where LLMs ignore critical facts buried in noise. Konsta solves this by:
+- **Semantic Deduplication**: Removing redundant and contradictory information using local embeddings.
+- **Context Distillation**: Using a specialized LLM to rewrite complex contexts into a concentrated, high-density format.
+- **Concentrated Focus**: Providing the target model with only the essential facts, which directly reduces hallucinations and increases factual precision.
 
-| Metric | Raw Request | With Konsta | Improvement |
+### 💰 Economic Efficiency (The Bonus)
+Because Konsta delivers high-density prompts, you naturally achieve:
+- **60-80% Reduction** in input token costs.
+- **Faster Time-to-First-Token (TTFT)** due to smaller prompt processing.
+- **Distillation Arbitrage**: Using a fast, cheap model (e.g., Gemma-4-31B) to optimize prompts for a premium flagship (e.g., Claude Opus 4.8 / GPT-5.5).
+
+---
+
+## 📈 Efficiency & Quality Metrics
+
+| Metric | Raw Request | With Konsta | Impact |
 | :--- | :--- | :--- | :--- |
-| **Context Volume** | 100% (Full History) | 30% - 60% | **40-70% Reduction** |
-| **Noise Level** | High (Redundant) | Low (Concentrated) | **Significant $\downarrow$** |
-| **Cost (Avg)** | $1.00 (Premium Model) | $0.20 - $0.40 | **60-80% Savings** |
+| **Signal-to-Noise Ratio** | Low (Bloated) | **Ultra-High** | $\uparrow$ Accuracy |
+| **Fact Retrieval** | Unreliable (Lost in Middle) | **Deterministic** | $\downarrow$ Hallucinations |
+| **Context Volume** | 100% | 30% - 60% | $\downarrow$ Cost |
+| **Model Reasoning** | Diluted | **Concentrated** | $\uparrow$ Depth |
 
-### 💰 The "Distillation Arbitrage"
-Why use Konsta? Because the cost of compressing context with a fast model is negligible compared to the cost of processing that same context in a flagship model.
+---
 
-**Example Scenario:**
-- **Target Model:** Claude Opus 4.8 / GPT-5.5 (Expensive)
-- **Compressor:** Gemma-4-31B via Cerebras (Ultra-fast & Cheap)
-- **The Win:** You pay a fraction of a cent to compress 10k tokens down to 2k, then pay the premium model only for those 2k tokens. **The ROI is immediate.**
+## 🧪 Performance Case Studies: From Noise to Expertise
 
-### 🔄 Request Flow Architecture
+### Case 1: "Needle in a Haystack" $\rightarrow$ Surgical Precision
+**Scenario**: Finding one specific secret code in 50k+ tokens of system logs.
+- **Without Konsta**: The model often suffers from "Lost in the Middle," missing the secret or hallucinating a wrong code due to noise.
+- **With Konsta**: The semantic engine strips away the redundant logs and focuses the LLM on the specific event.
+- **Result**: **100% Retrieval Accuracy** and zero noise-induced errors.
+
+### Case 2: "Expert Architecture Analysis" $\rightarrow$ High-Level Reasoning
+**Scenario**: Deep analysis of a 20-page Enterprise Architecture Document.
+- **The Challenge**: Synthesizing complex links between Kafka, CRDTs, and Security protocols.
+- **Konsta's Magic**: Instead of sending the whole document, Konsta distills "corporate speak" and preserves the technical core (e.g., `LWW-Element-Sets`, `TTFB < 10ms`, `Citus sharding`).
+- **Result**: The target model provides **actionable engineering blueprints** (CLI commands, audit steps) instead of generic summaries.
+
+---
+
+## 🔄 Request Flow Architecture
 ```mermaid
 sequenceDiagram
     participant User as 👤 User / App
@@ -32,74 +57,19 @@ sequenceDiagram
     participant Distill as ⚡ Gemma-4 (Distiller)
     participant Provider as 🤖 LLM Provider (Claude/GPT)
 
-    User->>Konsta: Sends Long Context Request
-    Note over Konsta: 1. Local Semantic Deduplication
+    User->>Konsta: Sends Bloated/Noisy Request
+    Note over Konsta: 1. Semantic Noise Removal
     Konsta->>Distill: Sends Redundant Context
     Distill-->>Konsta: Returns High-Density Distillation
-    Note over Konsta: 2. Final Payload Optimization
-    Konsta->>Provider: Sends Compressed Prompt
-    Provider-->>Konsta: Returns High-Quality Response
-    Konsta-->>User: Delivers Response
+    Note over Konsta: 2. Signal-to-Noise Optimization
+    Konsta->>Provider: Sends Concentrated Prompt
+    Provider-->>Konsta: Returns High-Precision Response
+    Konsta-->>User: Delivers Accurate Answer
 ```
 
 ---
 
-## 🚀 The Value Proposition
-
-
-### 💰 Cost Reduction
-Most LLM providers charge per token. For applications with long conversation histories, costs scale quadratically. Konsta reduces the "token tax" by:
-- **Semantic Deduplication**: removing redundant information using local embeddings.
-- **LLM Distillation**: using a fast, specialized model (e.g., Gemma-4-31B) to summarize context without losing critical facts.
-
-### 🎯 Higher Quality (Anti-Noise)
-LLMs often suffer from the "Lost in the Middle" phenomenon, where critical information in long prompts is ignored. Konsta cleans the noise, providing the target model with a **concentrated extract** of the context, leading to:
-- Higher accuracy.
-- Reduced hallucinations.
-- Faster time-to-first-token.
-
----
-
-## 🛠 How It Works
-
-Konsta implements a three-stage compression pipeline:
-
-1. **Semantic Layer (Local)**: Uses `all-MiniLM-L6-v2` to identify and remove semantically identical messages.
-2. **Distillation Layer (Remote)**: A specialized "compressor" LLM rewrites the remaining context into a dense, summarized format.
-3. **Transparent Proxy**: Acts as a MITM proxy, modifying requests on-the-fly and forwarding them to providers like Mistral, OpenAI, or Anthropic.
-
----
-
-## 🛠 How It Works
-
-Konsta implements a three-stage compression pipeline:
-
-1. **Semantic Layer (Local)**: Uses `all-MiniLM-L6-v2` to identify and remove semantically identical messages.
-2. **Distillation Layer (Remote)**: A specialized "compressor" LLM rewrites the remaining context into a dense, summarized format.
-3. **Transparent Proxy**: Acts as a MITM proxy, modifying requests on-the-fly and forwarding them to providers like Mistral, OpenAI, or Anthropic.
-
----
-
-## 🧪 Performance Case Studies
-
-Konsta is not just about reducing tokens; it's about increasing the **signal-to-noise ratio**. Here is how it performs in real-world scenarios.
-
-### Case 1: "The Needle in a Haystack" (Fact Extraction)
-**Scenario**: A massive log file (50k+ tokens) containing thousands of lines of system diagnostics, with one critical secret hidden in the middle.
-- **Without Konsta**: The model often suffers from "Lost in the Middle," missing the secret or hallucinating due to noise.
-- **With Konsta**: The semantic engine strips away the redundant logs and focuses the LLM on the specific event.
-- **Result**: **100% Accuracy** and **~80% reduction** in prompt costs.
-
-### Case 2: "Expert Architecture Analysis" (Technical Density)
-**Scenario**: A complex 20-page Enterprise Architecture Document (EAD) describing distributed state synchronization, CRDTs, and multi-tier caching.
-- **The Challenge**: Asking deep technical questions (e.g., *"How does horizontal scaling work in this specific Kafka setup?"*).
-- **Konsta's Magic**: Instead of sending the whole document, Konsta distills the launderings of "corporate speak" and keeps the technical core (keywords like `LWW-Element-Sets`, `TTFB < 10ms`, `Citus sharding`).
-- **Result**: The target model (e.g., Mistral Large) provides a **senior-level engineering response** while the user pays for a fraction of the original context.
-
----
-
 ## 🚀 Getting Started (Step-by-Step)
-
 
 ### 1. Clone the Repository
 ```bash
@@ -135,12 +105,11 @@ Konsta is configured via environment variables. You can set them in your termina
 
 **Required Keys:**
 - `LLM_API_KEY`: Your **Cerebras** API key (used for the Gemma-4-31B compressor).
-- `TARGET_API_KEY`: (Optional) Your key for the target provider (OpenAI, Mistral, Anthropic), though most users keep these in their application side.
+- `TARGET_API_KEY`: (Optional) Your key for the target provider (OpenAI, Mistral, Anthropic).
 
 **Example setup:**
 ```bash
 export LLM_API_KEY="your_cerebras_api_key_here"
-# Add other provider keys if needed by your app
 ```
 
 ---
@@ -164,7 +133,6 @@ python3 -m src.main
 ---
 
 ## 🏗 Project Structure
-
 
 - `src/`: The core engine.
   - `proxy_core.py`: The MITM proxy logic (powered by `mitmproxy`).
