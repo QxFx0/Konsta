@@ -24,6 +24,24 @@ Why use Konsta? Because the cost of compressing context with a fast model is neg
 - **Compressor:** Gemma-4-31B via Cerebras (Ultra-fast & Cheap)
 - **The Win:** You pay a fraction of a cent to compress 10k tokens down to 2k, then pay the premium model only for those 2k tokens. **The ROI is immediate.**
 
+### 🔄 Request Flow Architecture
+```mermaid
+sequenceDiagram
+    participant User as 👤 User / App
+    participant Konsta as 🛡️ Konsta Proxy
+    participant Distill as ⚡ Gemma-4 (Distiller)
+    participant Provider as 🤖 LLM Provider (Claude/GPT)
+
+    User->>Konsta: Sends Long Context Request
+    Note over Konsta: 1. Local Semantic Deduplication
+    Konsta->>Distill: Sends Redundant Context
+    Distill-->>Konsta: Returns High-Density Distillation
+    Note over Konsta: 2. Final Payload Optimization
+    Konsta->>Provider: Sends Compressed Prompt
+    Provider-->>Konsta: Returns High-Quality Response
+    Konsta-->>User: Delivers Response
+```
+
 ---
 
 ## 🚀 The Value Proposition
