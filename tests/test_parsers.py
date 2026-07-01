@@ -1,10 +1,9 @@
-import pytest
 from src.api_parsers import (
-    parse_openai_messages, 
-    serialize_openai_messages, 
-    parse_anthropic_messages, 
-    serialize_anthropic_messages, 
-    Message
+    Message,
+    parse_anthropic_messages,
+    parse_openai_messages,
+    serialize_anthropic_messages,
+    serialize_openai_messages,
 )
 
 # --- OpenAI Tests ---
@@ -89,7 +88,7 @@ def test_serialize_anthropic_messages_with_system():
     ]
     system_prompt = "You are a helpful assistant"
     serialized = serialize_anthropic_messages(messages, system_prompt=system_prompt)
-    
+
     assert serialized["system"] == system_prompt
     assert len(serialized["messages"]) == 2
     assert serialized["messages"][0] == {"role": "user", "content": "Hello"}
@@ -99,7 +98,7 @@ def test_serialize_anthropic_messages_no_system():
         Message(role="user", content="Hello")
     ]
     serialized = serialize_anthropic_messages(messages)
-    
+
     assert "system" not in serialized
     assert len(serialized["messages"]) == 1
 
@@ -110,7 +109,7 @@ def test_serialize_anthropic_filters_system_messages():
         Message(role="user", content="Hello")
     ]
     serialized = serialize_anthropic_messages(messages)
-    
+
     # The system message should be filtered out of the messages list
     assert len(serialized["messages"]) == 1
     assert serialized["messages"][0]["role"] == "user"

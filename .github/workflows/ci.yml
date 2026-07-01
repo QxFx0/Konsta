@@ -1,0 +1,78 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install system dependencies for keyring
+        # libsecret provides the SecretService backend used by `python-keyring`
+        # on Ubuntu. Tests monkeypatch the keyring API, but installing libsecret
+        # keeps the import-time backend probe happy on a headless runner.
+        run: sudo apt-get update && sudo apt-get install -y libsecret-1-0
+
+      - name: Install Python dependencies
+        # `keyring` is declared in both requirements files; installing
+        # requirements-dev.txt pulls it in alongside ruff and pytest plugins.
+        run: pip install -r requirements.txt -r requirements-dev.txt
+
+      - name: Export environment variables for src imports
+        # `src.config.config = Config()` runs at module import time and
+        # reads LLM_API_KEY plus CA_CERT_PATH / CA_KEY_PATH from the
+        # environment. We export them here so every subsequent step that
+        # imports `src.*` (ruff linting, pytest, smoke tests) sees a
+        # valid configuration without re-exporting per step.
+        env:
+          LLM_API_KEY: dummy
+          CA_KEY_PASSWORD: dummy
+          # Dummy CA paths below are created by the next step. They match
+          # the `Config` defaults' directory layout (`~/.mitmproxy/...`)
+          # only in the sense that they exist as readable files; the
+          # actual content is irrelevant for lint/test runs because
+          # doctor and the proxy never decrypt anything in CI.
+          CA_CERT_PATH: ${{ runner.temp }}/konsta-ci-ca.pem
+          CA_KEY_PATH: ${{ runner.temp }}/konsta-ci-ca.key
+          # Force a headless-capable keyring backend for any code path
+          # that touches the real keyring outside of monkeypatched tests.
+          PYTHON_KEYRING_BACKEND: keyring.alt.file.PlaintextKeyring
+        run: |
+          echo "LLM_API_KEY=${LLM_API_KEY}" >> "$GITHUB_ENV"
+          echo "CA_KEY_PASSWORD=${CA_KEY_PASSWORD}" >> "$GITHUB_ENV"
+          echo "CA_CERT_PATH=${CA_CERT_PATH}" >> "$GITHUB_ENV"
+          echo "CA_KEY_PATH=${CA_KEY_PATH}" >> "$GITHUB_ENV"
+          echo "PYTHON_KEYRING_BACKEND=${PYTHON_KEYRING_BACKEND}" >> "$GITHUB_ENV"
+
+      - name: Create dummy CA files for tests
+        # Several tests assert that the paths in CA_CERT_PATH / CA_KEY_PATH
+        # point to readable files. `Config.__init__` lets those env vars
+        # override constructor arguments, so we materialise empty files at
+        # the exact paths the test env points at. The contents are not
+        # validated because CI never starts the proxy. Paths live under
+        # `${{ runner.temp }}` instead of `/tmp` so multiple concurrent jobs
+        # on the same self-hosted runner do not race over a shared path.
+        run: |
+          touch "${CA_CERT_PATH}" "${CA_KEY_PATH}"
+          chmod 600 "${CA_CERT_PATH}" "${CA_KEY_PATH}"
+
+      - name: Ruff lint
+        # LLM_API_KEY / CA_* env vars are exported above so this step sees
+        # the same environment as the tests, even though ruff itself
+        # doesn't import `src`.
+        run: ruff check src tests
+
+      - name: Pytest
+        # Env vars are exported in the earlier "Export environment
+        # variables for src imports" step (via $GITHUB_ENV), so pytest
+        # inherits them automatically without re-declaring them here.
+        run: pytest

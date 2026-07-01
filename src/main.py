@@ -1,101 +1,144 @@
-import os
-import sys
-import subprocess
+"""Konsta Context Compression Proxy -- thin entry point.
+
+The heavy lifting lives in dedicated modules:
+
+- :mod:`src.cli` -- argparse wiring and config mutation helpers.
+- :mod:`src.doctor` -- health checks for the ``doctor`` subcommand.
+- :mod:`src.proxy_launcher` -- CA installation, distillation worker
+  construction, and the ``mitmdump`` subprocess loop.
+- :mod:`src.engine` -- the actual compression / distillation pipeline
+  loaded by ``mitmdump`` as an addon script.
+
+This file is intentionally short: it sets up logging, registers signal
+handlers, parses arguments, and dispatches to either ``doctor`` or the
+proxy launcher.
+"""
+
+from __future__ import annotations
+
 import logging
+import os
 import signal
-from src.config import config
+import sys
+from pathlib import Path
+
+from src.cli import apply_distillation_settings, parse_args
+from src.config import Config, set_config
+from src.doctor import _run_doctor_command
+from src.proxy_launcher import install_ca_if_requested, launch_proxy
 
 # Configure logging
 logging.basicConfig(
-    level=logging.DEBUG,  # Changed to DEBUG for detailed logging
+    level=logging.INFO,
     format='%(asctime)s [%(levelname)s] %(name)s: %(message)s',
-    handlers=[logging.StreamHandler(sys.stdout)]
+    handlers=[logging.StreamHandler(sys.stdout)],
 )
 logger = logging.getLogger("main")
 
-def main():
+
+def main() -> None:
+    """Entry point for the Konsta Context Compression Proxy.
+
+    Handles argument parsing, optional ``doctor`` subcommand, applies CLI
+    flags to the global config, publishes the shared Metrics instance,
+    ensures the local CA exists, applies the optional ``--llm-model``
+    override, and finally launches the mitmproxy engine.
     """
-    Main entry point for the Konsta Context Compression Proxy.
-    
-    This function handles model selection, wires together the configuration,
-    and launches the mitmproxy engine (mitmdump).
-    """
+    args = parse_args()
+
+    # Construct the process-wide ``Config`` exactly once at startup and
+    # publish it via :func:`src.config.set_config`. Doing this *after*
+    # ``parse_args`` is intentional: ``--help`` (and ``doctor --help``)
+    # exit before this point so the ``Config()`` constructor -- which
+    # runs env loading and validation -- is never invoked when the user
+    # only wants help text. See
+    # https://.../konsta-fourth-wave-audit for the original report.
+    config = Config()
+    set_config(config)
+
+    # ``doctor`` is a standalone subcommand: it runs checks and exits without
+    # touching the proxy / CA / model selection pipeline.
+    if getattr(args, "command", None) == "doctor":
+        sys.exit(_run_doctor_command(args, config))
+
     # Add project root to PYTHONPATH so mitmdump can find 'src' module
     project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-    os.environ["PYTHONPATH"] = project_root + os.pathsep + os.environ.get("PYTHONPATH", "")
-    
+    os.environ["PYTHONPATH"] = (
+        project_root + os.pathsep + os.environ.get("PYTHONPATH", "")
+    )
+
     logger.info("Welcome to Konsta Context Compression Proxy")
-    
-    # 0. Model Selection (Simple CLI TUI)
-    print("\n--- Select Compression Model (Cerebras.ai) ---")
-    for key, model in config.SUPPORTED_MODELS.items():
-        print(f"{key}) {model}")
-    print("d) Use default/environment variable")
-    
-    choice = input("\nEnter choice [1-3 or d]: ").strip().lower()
-    if choice in config.SUPPORTED_MODELS:
-        selected_model = config.SUPPORTED_MODELS[choice]
-        config.llm_model = selected_model
-        logger.info(f"Selected model: {selected_model}")
+
+    # Apply distillation CLI flags to the global config before any proxy is
+    # constructed (the temporary CA-install proxy and the mitmdump addon
+    # both read from `config`).
+    apply_distillation_settings(
+        config,
+        args.distillation_mode,
+        args.enable_llm_distillation,
+        args.llm_timeout,
+    )
+
+    # Publish the shared Metrics instance before any proxy/worker is
+    # constructed. The mitmdump subprocess addon loads proxy_core.py, which
+    # reads the shared singleton via get_shared_metrics(); doing this here
+    # guarantees a single store is observed across the operator-facing
+    # code and the addon itself.
+    from src.metrics import Metrics, set_shared_metrics
+
+    metrics = Metrics()
+    set_shared_metrics(metrics)
+    logger.debug("Shared Metrics instance installed for the proxy addon.")
+
+    # 1. Resolve the CA passphrase and ensure the local CA key/cert exist before
+    # the proxy launches. The passphrase is sourced from CA_KEY_PASSWORD if set,
+    # otherwise from the OS keyring via CAKeyManager. If neither is available
+    # AND stdin is non-interactive (e.g. CI, --help exits earlier), this is a
+    # hard failure -- the proxy cannot transparently intercept HTTPS without a
+    # valid CA.
+    from src.ca_manager import CAManager
+
+    try:
+        password = config.resolve_ca_password()
+    except ValueError as ve:
+        logger.error(str(ve))
+        sys.exit(1)
+
+    ca_manager = CAManager()
+    if not ca_manager.setup_ca(
+        cert_path=Path(config.ca_cert_path),
+        key_path=Path(config.ca_key_path),
+        password=password,
+    ):
+        logger.error(
+            "CA setup failed. The proxy cannot start without a valid CA "
+            "key/cert pair."
+        )
+        sys.exit(1)
+
+    # Apply the optional --llm-model flag to the global config. Env var
+    # LLM_MODEL is already consumed by Config.__post_init__; the CLI flag
+    # wins over the env var so operators can override defaults per-run.
+    if getattr(args, "llm_model", None):
+        config.llm_model = args.llm_model
+        logger.info(f"LLM model overridden via --llm-model: {config.llm_model}")
     else:
-        logger.info("Using default model configuration.")
+        logger.info(f"Using LLM model from configuration: {config.llm_model}")
 
     logger.info("Starting system...")
-    
-    # 1. Validate Environment and Config
-    try:
-        # Validate configuration first
-        config._validate()
-        
-        subprocess.run(["mitmdump", "--version"], capture_output=True, check=True)
-    except ValueError as ve:
-        logger.error(f"Configuration error: {ve}")
-        sys.exit(1)
-    except (subprocess.CalledProcessError, FileNotFoundError):
-        logger.error("mitmdump not found in PATH. Please install mitmproxy: pip install mitmproxy")
-        sys.exit(1)
 
-    # 2. Prepare mitmdump command
-    # We use mitmdump for a headless, production-ready proxy loop
-    # -s loads the addon script where ContextCompressionProxy is defined
-    # -p specifies the listening port
-    
-    addon_path = os.path.join(os.path.dirname(__file__), "proxy_core.py")
-    
-    # mitmproxy --set expects 'key=value' pairs. 
-    # Using --set block_global=false ensures that we don't block global traffic 
-    # and overrides any conflicting settings in the user's mitmproxy config files.
-    cmd = [
-        "mitmdump",
-        "-s", addon_path,
-        "-p", str(config.proxy_port),
-        "--set", "block_global=false",
-    ]
+    # 1. Optional CA system-wide installation (opt-in via --install-ca).
+    # ``install_ca_if_requested`` returns a temporary proxy instance when
+    # it had to construct one to drive the CA install, or ``None`` when
+    # CA installation was skipped. ``launch_proxy`` then guarantees
+    # ``proxy.done()`` is invoked so the proxy's async loop and worker
+    # thread are torn down cleanly before the process exits.
+    proxy = install_ca_if_requested(args.install_ca, config=config)
 
-    logger.info(f"Launching proxy on {config.proxy_host}:{config.proxy_port}")
-    logger.info(f"Targeting hosts: {', '.join(config.target_hosts)}")
-    logger.info(f"Command: {' '.join(cmd)}")
+    # 2. Launch mitmdump as a subprocess; stream its output until the user
+    # interrupts or the process exits.
+    launch_proxy(proxy=proxy, config=config)
 
-    try:
-        # Start the proxy process
-        process = subprocess.Popen(
-            cmd,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT,
-            text=True,
-            bufsize=1
-        )
-
-        # Stream logs from mitmdump to our logger
-        for line in process.stdout:
-            logger.info(f"[mitmproxy] {line.strip()}")
-
-    except KeyboardInterrupt:
-        logger.info("Shutting down proxy...")
-        process.terminate()
-    except Exception as e:
-        logger.exception(f"Unexpected error occurred: {e}")
-        sys.exit(1)
 
 if __name__ == "__main__":
     # Handle termination signals for clean shutdown

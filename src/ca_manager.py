@@ -1,84 +1,39 @@
-import os
-import subprocess
-import shutil
+"""CA manager facade.
+
+This module historically owned every CA-related concern: key management,
+certificate generation, OS trust-store installation, and a top-level
+:class:`CAManager` facade. The cryptographic primitives were extracted into
+:mod:`src.ca.crypto` so that :mod:`src.config` can depend on the leaf-level
+:class:`~src.ca.crypto.CAKeyManager` without pulling in :class:`CAManager` or
+the system installer (and, transitively, anything that the application core
+loads on startup).
+
+To keep existing imports (``from src.ca_manager import CAKeyManager``,
+``CAManager``, etc.) working unchanged we re-export the moved classes here.
+"""
+
+from __future__ import annotations
+
 import logging
+import os
 import platform
-from datetime import datetime, timezone, timedelta
+import shutil
+import subprocess
 from pathlib import Path
 from typing import Optional
 
-from cryptography import x509
-from cryptography.x509.oid import NameOID
-from cryptography.hazmat.primitives import hashes
-from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.hazmat.primitives import serialization
+
+from src.ca.crypto import CACertificateGenerator, CAKeyManager
 
 logger = logging.getLogger(__name__)
 
-class CACertificateGenerator:
-    """
-    Handles the cryptographic generation of CA certificates and private keys.
-    """
-    
-    def __init__(self, common_name: str = "Konsta Root CA"):
-        # Ensure common_name is a string and respects the X.509 length limit (max 64 chars)
-        self.common_name = str(common_name)[:64]
-
-    def generate_ca(self, cert_path: Path, key_path: Path, days_valid: int = 3650, password: Optional[str] = None) -> None:
-        """
-        Generates a self-signed CA certificate and a private key.
-        """
-        # Generate private key
-        private_key = rsa.generate_private_key(
-            public_exponent=65537,
-            key_size=4096,
-        )
-
-        # Create CA certificate
-        subject = issuer = x509.Name([
-            x509.NameAttribute(NameOID.COMMON_NAME, self.common_name),
-        ])
-
-        now = datetime.now(timezone.utc)
-        cert = x509.CertificateBuilder()
-        cert = cert.subject_name(subject)
-        cert = cert.issuer_name(issuer)
-        cert = cert.public_key(private_key.public_key())
-        cert = cert.serial_number(x509.random_serial_number())
-        cert = cert.not_valid_before(now)
-        cert = cert.not_valid_after(now + timedelta(days=days_valid))
-        
-        # Basic constraints for CA
-        cert = cert.add_extension(
-            x509.BasicConstraints(ca=True, path_length=None), critical=True,
-        )
-        
-        ca_cert = cert.sign(private_key, hashes.SHA256())
-
-        # Determine encryption algorithm
-        encryption_algorithm = (
-            serialization.BestAvailableEncryption(password.encode()) 
-            if password else serialization.NoEncryption()
-        )
-
-        # Write private key with restricted permissions (chmod 600)
-        key_bytes = private_key.private_bytes(
-            encoding=serialization.Encoding.PEM,
-            format=serialization.PrivateFormat.TraditionalOpenSSL,
-            encryption_algorithm=encryption_algorithm,
-        )
-        
-        # Ensure the parent directory exists
-        key_path.parent.mkdir(parents=True, exist_ok=True)
-        
-        # Use os.open to ensure the file is created with 0600 permissions immediately
-        fd = os.open(key_path, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600)
-        with os.fdopen(fd, 'wb') as f:
-            f.write(key_bytes)
-
-        # Write certificate
-        with open(cert_path, 'wb') as f:
-            f.write(ca_cert.public_bytes(serialization.Encoding.PEM))
+__all__ = [
+    "CAKeyManager",
+    "CACertificateGenerator",
+    "CASystemInstaller",
+    "CAManager",
+]
 
 
 class CASystemInstaller:
@@ -91,7 +46,7 @@ class CASystemInstaller:
         Installs the certificate into the system trust store based on the OS.
         """
         system = platform.system().lower()
-        
+
         if system == 'linux':
             return self._install_linux(cert_path)
         elif system == 'darwin':
@@ -120,35 +75,119 @@ class CASystemInstaller:
     def _install_linux(self, cert_path: Path) -> bool:
         """
         Linux-specific installation logic supporting multiple distributions.
+
+        Distribution family is determined (when possible) from
+        ``/etc/os-release`` by inspecting ``ID`` and ``ID_LIKE`` so the
+        correct CA update tool is selected without having to probe every
+        package that might be installed. If ``/etc/os-release`` is
+        unavailable or does not name a recognised family the code falls
+        back to the original file-existence probes.
         """
         try:
-            # Debian/Ubuntu
+            family = self._detect_linux_family()
+            logger.debug("Detected Linux family for CA install: %s", family)
+
+            if family == "debian":
+                return self._install_linux_debian(cert_path)
+            if family == "rhel":
+                return self._install_linux_rhel(cert_path)
+
+            # Fallback: probe the filesystem when /etc/os-release was
+            # missing or did not name a known family.
             if Path("/usr/sbin/update-ca-certificates").exists():
-                dest_dir = Path("/usr/local/share/ca-certificates")
-                self._run_as_sudo(["mkdir", "-p", str(dest_dir)])
-                cert_filename = cert_path.name if cert_path.suffix == ".crt" else f"{cert_path.stem}.crt"
-                dest_path = dest_dir / cert_filename
-                self._run_as_sudo(["cp", str(cert_path), str(dest_path)])
-                self._run_as_sudo(["update-ca-certificates"])
-                return True
-
-            # RHEL/CentOS/Fedora/Arch
+                return self._install_linux_debian(cert_path)
             if Path("/usr/bin/update-ca-trust").exists():
-                dest_dir = Path("/etc/pki/ca-trust/source/anchors")
-                self._run_as_sudo(["mkdir", "-p", str(dest_dir)])
-                dest_path = dest_dir / cert_path.name
-                self._run_as_sudo(["cp", str(cert_path), str(dest_path)])
-                self._run_as_sudo(["update-ca-trust"])
-                return True
+                return self._install_linux_rhel(cert_path)
 
-            raise RuntimeError("Supported CA update tool (update-ca-certificates or update-ca-trust) not found on this system.")
+            raise RuntimeError(
+                "Supported CA update tool (update-ca-certificates or "
+                "update-ca-trust) not found on this system."
+            )
 
         except subprocess.CalledProcessError as e:
-            logger.error(f"Command failed during Linux certificate installation: {e.cmd}, error: {e.stderr.decode() if e.stderr else e}")
+            logger.error(
+                f"Command failed during Linux certificate installation: "
+                f"{e.cmd}, error: {e.stderr.decode() if e.stderr else e}"
+            )
             return False
         except Exception:
             logger.exception("Unexpected error occurred during Linux certificate installation")
             return False
+
+    @staticmethod
+    def _detect_linux_family() -> Optional[str]:
+        """Return ``"debian"``, ``"rhel"``, or ``None`` for an unknown family.
+
+        Reads ``/etc/os-release`` (the standard os-release spec field
+        ``ID`` and the optional ``ID_LIKE``). Returns ``None`` when the
+        file is missing or no recognised identifier is found so callers
+        can fall back to filesystem-based detection.
+        """
+        os_release = Path("/etc/os-release")
+        if not os_release.is_file():
+            return None
+
+        ids: set[str] = set()
+        try:
+            for line in os_release.read_text(encoding="utf-8", errors="replace").splitlines():
+                line = line.strip()
+                if not line or "=" not in line or line.startswith("#"):
+                    continue
+                key, _, value = line.partition("=")
+                if key != "ID" and key != "ID_LIKE":
+                    continue
+                # Values are quoted per the os-release spec.
+                value = value.strip().strip('"').strip("'")
+                for entry in value.split():
+                    ids.add(entry.lower())
+        except OSError as exc:
+            logger.debug("Failed to read /etc/os-release: %s", exc)
+            return None
+
+        if not ids:
+            return None
+
+        # Debian-family: Debian, Ubuntu, Mint, Pop!_OS, elementary OS,
+        # Kali, Raspbian, etc.
+        debian_ids = {
+            "debian", "ubuntu", "linuxmint", "pop", "elementary",
+            "kali", "raspbian", "deepin", "zorin",
+        }
+        # RHEL-family: RHEL, CentOS, Fedora, Rocky, AlmaLinux, Nobara,
+        # openSUSE (uses update-ca-trust on Tumbleweed/Leap), Arch,
+        # Manjaro, etc.
+        rhel_ids = {
+            "rhel", "centos", "fedora", "rocky", "almalinux", "ol",
+            "nobara", "opensuse", "sles", "arch", "manjaro",
+            "arcolinux", "endeavouros",
+        }
+
+        if ids & debian_ids:
+            return "debian"
+        if ids & rhel_ids:
+            return "rhel"
+        return None
+
+    def _install_linux_debian(self, cert_path: Path) -> bool:
+        """Install ``cert_path`` into the Debian/Ubuntu trust store."""
+        dest_dir = Path("/usr/local/share/ca-certificates")
+        self._run_as_sudo(["mkdir", "-p", str(dest_dir)])
+        cert_filename = (
+            cert_path.name if cert_path.suffix == ".crt" else f"{cert_path.stem}.crt"
+        )
+        dest_path = dest_dir / cert_filename
+        self._run_as_sudo(["cp", str(cert_path), str(dest_path)])
+        self._run_as_sudo(["update-ca-certificates"])
+        return True
+
+    def _install_linux_rhel(self, cert_path: Path) -> bool:
+        """Install ``cert_path`` into the RHEL/CentOS/Fedora/Arch trust store."""
+        dest_dir = Path("/etc/pki/ca-trust/source/anchors")
+        self._run_as_sudo(["mkdir", "-p", str(dest_dir)])
+        dest_path = dest_dir / cert_path.name
+        self._run_as_sudo(["cp", str(cert_path), str(dest_path)])
+        self._run_as_sudo(["update-ca-trust"])
+        return True
 
     def _install_macos(self, cert_path: Path) -> bool:
         """
@@ -192,19 +231,49 @@ class CAManager:
     """
     Facade that coordinates certificate generation and installation.
     """
-    def __init__(self, common_name: str = "Konsta Root CA"):
+    def __init__(self, common_name: str = "Konsta Root CA", key_manager: Optional[CAKeyManager] = None):
         self.generator = CACertificateGenerator(common_name)
         self.installer = CASystemInstaller()
+        self.key_manager = key_manager or CAKeyManager()
 
-    def setup_ca(self, cert_path: Path, key_path: Path, install: bool = False) -> bool:
+    def setup_ca(self, cert_path: Path, key_path: Path, install: bool = False, password: Optional[str] = None) -> bool:
         """
         Generates the CA and optionally installs it to the system.
+
+        The CA private key is encrypted with a passphrase sourced from the
+        keyring (via ``CAKeyManager``). If ``password`` is provided it is used
+        directly; otherwise the keyring is consulted. A new passphrase is
+        prompted for if none is stored yet.
+
+        If an existing key is found on disk we verify it can be decrypted with
+        the supplied passphrase; otherwise a clear error is raised.
         """
+        if password is None:
+            password = self.key_manager.get_or_create_passphrase()
+
         try:
-            self.generator.generate_ca(cert_path, key_path)
+            if key_path.exists():
+                # Verify the existing key can be loaded with the supplied passphrase.
+                try:
+                    serialization.load_pem_private_key(
+                        key_path.read_bytes(),
+                        password=password.encode(),
+                    )
+                except (ValueError, TypeError) as e:
+                    raise RuntimeError(
+                        "Existing CA private key cannot be decrypted with the "
+                        "passphrase from the keyring. Update or delete the stored "
+                        "passphrase before re-running setup."
+                    ) from e
+            else:
+                self.generator.generate_ca(cert_path, key_path, password=password)
+
             if install:
                 return self.install_ca_system_wide(cert_path)
             return True
+        except RuntimeError:
+            # Bubble up the clear "wrong passphrase" error to the caller.
+            raise
         except Exception:
             logger.exception("Failed to setup CA")
             return False

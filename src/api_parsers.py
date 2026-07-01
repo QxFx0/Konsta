@@ -1,4 +1,5 @@
-from typing import List, Dict, Any, Optional, Union, NamedTuple
+from typing import Any, Dict, List, NamedTuple, Optional
+
 
 class Message(NamedTuple):
     """Internal representation of a message."""
@@ -45,7 +46,7 @@ def parse_anthropic_messages(messages: List[Dict[str, Any]]) -> List[Message]:
             continue
         role = msg.get("role", "unknown")
         content_raw = msg.get("content", "")
-        
+
         if isinstance(content_raw, list):
             text_parts = []
             for block in content_raw:
@@ -54,7 +55,7 @@ def parse_anthropic_messages(messages: List[Dict[str, Any]]) -> List[Message]:
             content = "".join(text_parts)
         else:
             content = str(content_raw)
-            
+
         parsed.append(Message(role=role, content=content))
     return parsed
 
@@ -65,7 +66,7 @@ def serialize_anthropic_messages(messages: List[Message], system_prompt: Optiona
     payload = {}
     if system_prompt:
         payload['system'] = system_prompt
-    
+
     anthropic_msgs = [
         {'role': m.role, 'content': m.content}
         for m in messages if m.role != 'system'
@@ -91,7 +92,7 @@ def parse_request(payload: Dict[str, Any], host: str) -> Optional[ParsedRequest]
             messages=parse_openai_messages(messages),
             provider=provider
         )
-    
+
     elif "anthropic" in host or "api.anthropic.com" in host:
         provider = "anthropic"
         messages = payload.get("messages", [])
@@ -102,7 +103,7 @@ def parse_request(payload: Dict[str, Any], host: str) -> Optional[ParsedRequest]
             messages=parse_anthropic_messages(messages),
             provider=provider
         )
-    
+
     # Fallback: try to guess by payload structure
     if "messages" in payload and isinstance(payload["messages"], list):
         # Default to OpenAI-like parsing if we can't determine host
@@ -119,10 +120,10 @@ def serialize_request(parsed: ParsedRequest) -> Dict[str, Any]:
     Reconstructs the full request payload using the modified messages.
     """
     payload = parsed.payload.copy()
-    
+
     if parsed.provider == "openai" or parsed.provider == "generic":
         payload["messages"] = serialize_openai_messages(parsed.messages)
-    
+
     elif parsed.provider == "anthropic":
         # Extract system prompt from messages if present
         system_prompt = None
@@ -130,8 +131,8 @@ def serialize_request(parsed: ParsedRequest) -> Dict[str, Any]:
             if m.role == "system":
                 system_prompt = m.content
                 break
-        
+
         anthropic_payload = serialize_anthropic_messages(parsed.messages, system_prompt)
         payload.update(anthropic_payload)
-        
+
     return payload

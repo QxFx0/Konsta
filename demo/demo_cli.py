@@ -27,15 +27,26 @@ class KonstaClient:
             "Authorization": f"Bearer {api_key}"
         }
         payload = {
-            "model": "mistral-tiny",
+            "model": "mistral-large-latest",
             "messages": [{"role": "user", "content": message}]
         }
 
         try:
             response = await self.client.post(url, json=payload, headers=headers)
             if response.status_code == 200:
+                # Extract compression metrics from headers
+                orig_size = response.headers.get("X-Konsta-Original-Size", "0")
+                comp_size = response.headers.get("X-Konsta-Compressed-Size", "0")
+                
+                metrics = ""
+                if orig_size != "0" and comp_size != "0":
+                    o, c = int(orig_size), int(comp_size)
+                    savings = 100 - (c / o * 100) if o > 0 else 0
+                    metrics = f"\n[bold green]📉 Compression: {o} → {c} chars ({savings:.1f}% reduction)[/bold green]"
+
                 data = response.json()
-                return data['choices'][0]['message']['content']
+                content = data['choices'][0]['message']['content']
+                return f"{content}{metrics}"
             else:
                 return f"[red]Error {response.status_code}: {response.text}[/red]"
         except Exception as e:
