@@ -30,6 +30,11 @@ if str(_PROJECT_ROOT) not in sys.path:
 # dummy files into ``tmp_path``.
 os.environ.setdefault("LLM_API_KEY", "test-llm-api-key")
 
+# Fix CI failure where PYTHON_KEYRING_BACKEND is set to a missing module (keyring.alt).
+# We unset it to allow keyring to use its default backend detection.
+if os.environ.get("PYTHON_KEYRING_BACKEND") == "keyring.alt.file.PlaintextKeyring":
+    os.environ.pop("PYTHON_KEYRING_BACKEND", None)
+
 
 class HTTPFlow:
     """Stand-in for :class:`mitmproxy.http.HTTPFlow` used in unit tests.
