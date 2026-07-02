@@ -228,15 +228,11 @@ class KonstaEngine:
     def _snapshot_original_size(
         self, adapter: ProxyAdapter, request: Any
     ) -> bool:
-        """Capture pre-compression body size and skip Cerebras hosts.
+        """Capture pre-compression body size.
 
-        Returns ``False`` to signal the caller should short-circuit (e.g.
-        the host is Cerebras and the request must be passed through
-        untouched). Otherwise the size is recorded on ``request`` and
-        ``True`` is returned so processing continues.
+        Returns ``True`` so processing continues. The size is recorded on
+        ``request`` for later use by the response handler.
         """
-        host = adapter.get_request_host(request)
-
         # Capture the original request size BEFORE any compression. The
         # response() handler reads this off the flow to populate
         # X-Konsta-Original-Size; after compression, the body is the
@@ -249,11 +245,6 @@ class KonstaEngine:
             # (e.g. a mock), skip the snapshot; response() will fall
             # back to the current body size.
             pass
-
-        # CRITICAL: Skip Cerebras requests to avoid recursion/403
-        if "cerebras.ai" in host:
-            logger.debug("Skipping Cerebras request to avoid recursion/403")
-            return False
 
         return True
 

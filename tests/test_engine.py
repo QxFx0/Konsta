@@ -155,21 +155,6 @@ def test_process_request_snapshots_original_size_on_flow(config, metrics):
     assert flow.konsta_orig_size == len(payload)
 
 
-def test_process_request_skips_cerebras(config, metrics):
-    engine = KonstaEngine(config=config, metrics=metrics)
-    payload = _build_request_payload()
-    adapter = FakeAdapter(
-        request_body=payload,
-        request_host="api.cerebras.ai",
-    )
-    flow = MagicMock()
-
-    engine.process_request(adapter, flow)
-
-    # Cerebras host -> body untouched.
-    assert adapter.set_request_body_calls == []
-
-
 def test_process_request_skips_oversized_payload(config, metrics):
     engine = KonstaEngine(config=config, metrics=metrics)
     # max_payload_bytes + 1 of content.

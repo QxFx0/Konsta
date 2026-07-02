@@ -22,11 +22,11 @@ class Config:
         exclusion_patterns (Set[str]): Set of file/directory patterns to exclude from context.
         proxy_port (int): Port on which the local proxy server will run.
         proxy_host (str): Host address for the local proxy server.
-        llm_api_key (str): API key for the LLM provider (e.g., cerebras.ai).
+        llm_api_key (str): API key for the LLM provider.
         llm_model (str): Model name for the LLM provider (e.g., 'llama3.1-8b').
             Override with the ``LLM_MODEL`` environment variable, or choose from
             ``SUPPORTED_MODELS`` at startup.
-        llm_endpoint (str): API endpoint for the LLM provider (e.g., 'https://api.cerebras.ai/v1/chat/completions').
+        llm_endpoint (str): API endpoint for the LLM provider.
         llm_timeout (float): Maximum number of seconds to wait for the remote
             distillation call before falling back to the locally compressed
             result. Defaults to 2.0 seconds.
@@ -49,7 +49,6 @@ class Config:
     target_hosts: Set[str] = field(default_factory=lambda: {
         "api.openai.com",
         "api.anthropic.com",
-        "api.cerebras.ai",
         "models.dev",
         "api.mistral.ai"
     })
@@ -69,8 +68,8 @@ class Config:
     proxy_host: str = "127.0.0.1"
     proxy_auth_token: Optional[str] = None
     llm_api_key: str = ""
-    llm_model: str = "llama3.1-8b"
-    llm_endpoint: str = "https://api.cerebras.ai/v1/chat/completions"
+    llm_model: str = ""
+    llm_endpoint: str = ""
     llm_timeout: float = 2.0
     distillation_mode: str = "background"
     ca_cert_path: str = os.path.expanduser("~/.mitmproxy/konsta-ca-cert.pem")

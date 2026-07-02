@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 
 class LLMProcessor:
     """
-    Handles context processing using a cheaper LLM (gpt-oss-120b from cerebras.ai).
+    Handles context processing using a configurable LLM provider.
     Integrates QueueManager for asynchronous processing to handle rate limits and concurrency.
     """
 
@@ -38,17 +38,13 @@ class LLMProcessor:
                 messages instead of issuing a new request.
         """
         # Store the config on the instance so non-``__init__`` code paths
-        # (e.g. ``_call_cerebras_async``) can read settings without
+        # (e.g. ``_call_llm_async``) can read settings without
         # relying on a module-level singleton.
         self.config = config
         self.api_key = config.llm_api_key
         self.model = config.llm_model
         self.endpoint = config.llm_endpoint
         self.circuit_breaker = circuit_breaker
-
-        if not self.endpoint:
-            logger.warning("LLM endpoint not configured. Using default cerebras.ai endpoint.")
-            self.endpoint = "https://api.cerebras.ai/v1/chat/completions"
 
         if not self.api_key:
             logger.warning("LLM API key not configured. LLM processing will be disabled.")
@@ -70,7 +66,7 @@ class LLMProcessor:
                 verify=True
             )
 
-        await self.queue_manager.start(self._call_cerebras_async)
+        await self.queue_manager.start(self._call_llm_async)
         logger.info("LLMProcessor started with async queue workers.")
 
     async def stop(self):
@@ -103,7 +99,7 @@ class LLMProcessor:
         try:
             task_id = str(uuid.uuid4())
             # Enqueue the request for processing by workers. The queue's worker
-            # invokes ``_call_cerebras_async`` which wraps the HTTP call in the
+            # invokes ``_call_llm_async`` which wraps the HTTP call in the
             # circuit breaker (when one is configured), so a CircuitBreakerOpen
             # raised inside the worker propagates back through ``enqueue``.
             processed_content = await self.queue_manager.enqueue(task_id, messages)
@@ -188,9 +184,9 @@ class LLMProcessor:
         """
         return min(base_delay * (2 ** attempt) + random.uniform(0, 1), max_delay)
 
-    async def _call_cerebras_async(self, messages: List[Dict[str, Any]]) -> Optional[str]:
+    async def _call_llm_async(self, messages: List[Dict[str, Any]]) -> Optional[str]:
         """
-        Asynchronous API call to Cerebras AI to distill the context
+        Asynchronous API call to the LLM provider to distill the context
         with exponential backoff for HTTP 429 errors.
 
         Args:
@@ -279,7 +275,7 @@ class LLMProcessor:
                 break
             except Exception as e:
                 # Safety net: log and stop retrying
-                logger.error(f"Unexpected error during _call_cerebras_async: {e}")
+                logger.error(f"Unexpected error during _call_llm_async: {e}")
                 break
 
         logger.error(f"Failed to get response from LLM after {max_retries} attempts.")

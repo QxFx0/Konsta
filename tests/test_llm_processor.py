@@ -152,7 +152,7 @@ async def test_custom_config_is_used_when_provided():
     fake_client.post = AsyncMock(return_value=fake_response)
 
     with patch.object(processor, "_client", new=fake_client):
-        await processor._call_cerebras_async([{"role": "user", "content": "x"}])
+        await processor._call_llm_async([{"role": "user", "content": "x"}])
 
     fake_client.post.assert_called_once()
     call_kwargs = fake_client.post.call_args.kwargs
@@ -174,8 +174,8 @@ def test_config_is_required_argument():
 
 
 @pytest.mark.asyncio
-async def test_call_cerebras_async_uses_breaker_for_http_call(config):
-    """``_call_cerebras_async`` routes the HTTP POST through ``breaker.call``
+async def test_call_llm_async_uses_breaker_for_http_call(config):
+    """``_call_llm_async`` routes the HTTP POST through ``breaker.call``
     when a breaker is configured; the breaker counts HTTP failures."""
     import httpx
 
@@ -194,7 +194,7 @@ async def test_call_cerebras_async_uses_breaker_for_http_call(config):
     fake_client.post = fake_post
 
     with patch.object(processor, "_client", new=fake_client):
-        result = await processor._call_cerebras_async([{"role": "user", "content": "x"}])
+        result = await processor._call_llm_async([{"role": "user", "content": "x"}])
 
     assert result is None
     # One tracked failure -> breaker should be OPEN.

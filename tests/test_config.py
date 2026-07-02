@@ -493,7 +493,7 @@ def test_config_str_does_not_leak_api_key(monkeypatch):
     assert "llm_api_key='***'" in rendered
 
 
-def test_config_repr_redacts_legacy_cerebras_api_key(monkeypatch):
+def test_config_repr_redacts_legacy_api_key(monkeypatch):
     """Setting the legacy CEREBRAS_API_KEY alias must also be redacted."""
     secret = "cerebras-fallback-secret-key"
     monkeypatch.delenv("LLM_API_KEY", raising=False)
