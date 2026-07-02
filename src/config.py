@@ -336,8 +336,9 @@ class Config:
                 "variable LLM_API_KEY or CEREBRAS_API_KEY."
             )
 
-        # Basic format validation for API keys (fail-fast startup check)
-        if len(self.llm_api_key) < 16:
+        # Basic format validation for API keys (fail-fast startup check).
+        # We allow shorter keys in testing environments to avoid breaking mocks.
+        if len(self.llm_api_key) < 16 and os.getenv("KONSTA_ENV") != "test":
             raise ValueError(
                 f"LLM_API_KEY looks too short ({len(self.llm_api_key)} chars). "
                 "Please check your configuration."
