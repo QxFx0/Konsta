@@ -1,0 +1,9 @@
+{
+  "url": "https://google.com/",
+  "status": 200,
+  "headers": {
+    "X-Konsta-Original-Size": "21",
+    "X-Konsta-Compressed-Size": "21"
+  },
+  "content": "response content"
+}

@@ -1,0 +1,15 @@
+{
+  "url": "https://api.mistral.ai/v1/chat/completions",
+  "headers": {
+    "Host": "api.mistral.ai",
+    "Accept": "*/*",
+    "Accept-Encoding": "gzip, deflate, br, zstd",
+    "Connection": "keep-alive",
+    "User-Agent": "python-httpx/0.28.1",
+    "Content-Type": "application/json",
+    "Authorization": "Bearer BDmosrSiKNU0voYg93UYDKIRj6VQDI4k",
+    "Cookie": "__cf_bm=I7AbkY92Rx2OybOF15uo7.ST6M5asUzukpK7UNoLuQA-1782748972.6421797-1.0.1.1-fydi1Rl6AUcruDRHXceM4BDY8TdZ5lrb7oYDOjnDL.cRilOYy6FCtb1I7yGVC8xMCeRw8F33E5m6h87SZElX0zG.wdi7I7uWzDGggKHWpX4blgZdep95M0HQRwKTajWp; _cfuvid=GW9LEaZP7Cmztn9UpjjJRDe.mswKsmMs_1_RjEjVoEg-1782748972.6421797-1.0.1.1-GuRnY09B3lHyPMlH_9UYUd.AhnJJ8xIk_gM70Np0_EM",
+    "Content-Length": "176"
+  },
+  "content": "{\"model\":\"mistral-large-latest\",\"messages\":[{\"role\":\"user\",\"content\":\"2. Ingestion: Kafka-based streaming, horizontal scaling via partitioned topics and rack-aware brokers.\"}]}"
+}

@@ -1,0 +1,11 @@
+{
+  "content": {
+    "model": "mistral-large-latest",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Distilled Context: User submitted a prompt containing only the heading “Core Specs:” without any additional details or context."
+      }
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "content": {
+    "model": "mistral-large-latest",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Distilled Context: The user requested a “Section 1: Executive Summary.”"
+      }
+    ]
+  }
+}

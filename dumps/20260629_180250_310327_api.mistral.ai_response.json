@@ -1,0 +1,31 @@
+{
+  "url": "https://api.mistral.ai/v1/chat/completions",
+  "status": 200,
+  "headers": {
+    "Date": "Mon, 29 Jun 2026 15:02:50 GMT",
+    "Content-Type": "application/json",
+    "Transfer-Encoding": "chunked",
+    "Connection": "keep-alive",
+    "mistral-correlation-id": "019f13e7-899c-7f90-a612-11371a9d05e4",
+    "x-kong-request-id": "019f13e7-899c-7f90-a612-11371a9d05e4",
+    "x-max-retry-attempts-reached": "false",
+    "x-ratelimit-limit-tokens-minute": "625000",
+    "x-ratelimit-remaining-tokens-minute": "624886",
+    "x-ratelimit-tokens-query-cost": "114",
+    "x-ratelimit-limit-req-minute": "188",
+    "x-ratelimit-remaining-req-minute": "187",
+    "x-envoy-upstream-service-time": "1097",
+    "Server": "cloudflare",
+    "access-control-allow-origin": "*",
+    "x-kong-upstream-latency": "1098",
+    "x-kong-proxy-latency": "18",
+    "cf-cache-status": "DYNAMIC",
+    "set-cookie": "__cf_bm=3DYgW1bWZHNVYkqsGaV5IR3VMzgVWntdSKV8V5_O16c-1782745368.9797153-1.0.1.1-oxGWPyzutlhhtrzOQyHOC9OSe9mwmeREJ36rtwHO1kz5YeXsH9JVDB6yTRJgTk50JMZWi6cmds3fSVAMKABxW36IrtqXbDDMiOLjXErNO3s0_t8T_vu2s4e91lam1Wfd; HttpOnly; SameSite=None; Secure; Path=/; Domain=mistral.ai; Expires=Mon, 29 Jun 2026 15:32:50 GMT, _cfuvid=u0.qOoUAdKbAQwojcZFEw3.LmK_Ir90PfrDo2P4Fs7w-1782745368.9797153-1.0.1.1-GEuRYcCRe7VVtkSqduFCKUnbRBbcuKS3SVrnu8OlLZ8; HttpOnly; SameSite=None; Secure; Path=/; Domain=mistral.ai",
+    "Strict-Transport-Security": "max-age=15552000; includeSubDomains; preload",
+    "X-Content-Type-Options": "nosniff",
+    "Content-Encoding": "br",
+    "CF-RAY": "a135d07c1da51806-ARN",
+    "alt-svc": "h3=\":443\"; ma=86400"
+  },
+  "content": "{\"id\":\"6ad24e29a5464b87b0fe033f5d546ddb\",\"created\":1782745369,\"model\":\"ministral-8b-latest\",\"usage\":{\"prompt_tokens\":18,\"total_tokens\":114,\"completion_tokens\":96,\"prompt_tokens_details\":{\"cached_tokens\":0}},\"object\":\"chat.completion\",\"choices\":[{\"index\":0,\"finish_reason\":\"stop\",\"message\":{\"role\":\"assistant\",\"tool_calls\":null,\"content\":\"It seems like your message is quite brief (\\\"re\\\"). Could you clarify or expand on what you're referring to?\\n\\nFor example:\\n- Are you asking about the word **\\\"re\\\"** (e.g., its meaning, usage, or origin)?\\n- Do you mean **\\\"re\\\"** as in **\\\"re\\\"** (short for \\\"replay,\\\" \\\"reboot,\\\" or \\\"reboot\\\" in gaming)?\\n- Or something else entirely? Let me know how I can assist!\"}}]}"
+}

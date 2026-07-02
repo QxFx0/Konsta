@@ -1,0 +1,32 @@
+{
+  "url": "https://api.mistral.ai/v1/chat/completions",
+  "status": 200,
+  "headers": {
+    "Date": "Mon, 29 Jun 2026 15:56:22 GMT",
+    "Content-Type": "application/json",
+    "Transfer-Encoding": "chunked",
+    "Connection": "keep-alive",
+    "mistral-correlation-id": "019f1418-7ec7-7465-a2c5-7ad8ff17f3b2",
+    "x-kong-request-id": "019f1418-7ec7-7465-a2c5-7ad8ff17f3b2",
+    "x-max-retry-attempts-reached": "false",
+    "x-ratelimit-limit-tokens-minute": "250000",
+    "x-ratelimit-remaining-tokens-minute": "249730",
+    "x-ratelimit-tokens-query-cost": "270",
+    "x-ratelimit-limit-req-minute": "4",
+    "x-ratelimit-remaining-req-minute": "3",
+    "x-envoy-upstream-service-time": "5072",
+    "Server": "cloudflare",
+    "access-control-allow-origin": "*",
+    "x-kong-upstream-latency": "5073",
+    "x-kong-proxy-latency": "18",
+    "cf-cache-status": "DYNAMIC",
+    "X-Content-Type-Options": "nosniff",
+    "Strict-Transport-Security": "max-age=15552000; includeSubDomains; preload",
+    "Content-Encoding": "br",
+    "CF-RAY": "a1361ed12db0829a-ARN",
+    "alt-svc": "h3=\":443\"; ma=86400",
+    "X-Konsta-Original-Size": "141",
+    "X-Konsta-Compressed-Size": "226"
+  },
+  "content": "{\"id\":\"4d05aea86b1b46369f4934eb27274a97\",\"created\":1782748577,\"model\":\"mistral-large-latest\",\"usage\":{\"prompt_tokens\":36,\"total_tokens\":270,\"completion_tokens\":234,\"prompt_tokens_details\":{\"cached_tokens\":0}},\"object\":\"chat.completion\",\"choices\":[{\"index\":0,\"finish_reason\":\"stop\",\"message\":{\"role\":\"assistant\",\"tool_calls\":null,\"content\":\"Here's a Python equivalent using the `requests` library for the curl command you provided:\\n\\n```python\\nimport requests\\nimport json\\n\\nurl = \\\"https://api.mistral.ai/v1/chat/completions\\\"\\n\\nheaders = {\\n    \\\"Content-Type\\\": \\\"application/json\\\",\\n    \\\"Accept\\\": \\\"application/json\\\",\\n    \\\"Authorization\\\": \\\"Bearer YOUR_API_KEY\\\"  # Replace with your actual API key\\n}\\n\\ndata = {\\n    \\\"model\\\": \\\"mistral-tiny\\\",\\n    \\\"messages\\\": [\\n        {\\n            \\\"role\\\": \\\"user\\\",\\n            \\\"content\\\": \\\"What is the best French cheese?\\\"\\n        }\\n    ]\\n}\\n\\nresponse = requests.post(url, headers=headers, data=json.dumps(data))\\n\\nprint(response.status_code)\\nprint(response.json())\\n```\\n\\nKey points:\\n1. The `Authorization` header requires your Mistral API key\\n2. The request body must be JSON-encoded (using `json.dumps()`)\\n3. The response will be in JSON format which you can access with `.json()`\\n\\nYou can modify the `data` dictionary to change the model, messages, or add other parameters like temperature, max_tokens, etc.\"}}]}"
+}

@@ -1,0 +1,11 @@
+{
+  "content": {
+    "model": "mistral-large-latest",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Distilled Context: The user supplied an HTTP Authorization header using a Bearer token: `Authorization: Bearer BDmosrSiKNU0voYg93UYDKIRj6VQDI4k`."
+      }
+    ]
+  }
+}

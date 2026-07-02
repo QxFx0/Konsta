@@ -1,0 +1,11 @@
+{
+  "content": {
+    "model": "mistral-large-latest",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Distilled Context: User submitted an incomplete command snippet “-d “, likely seeking help with a command‑line option or related usage."
+      }
+    ]
+  }
+}

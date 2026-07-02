@@ -1,0 +1,11 @@
+{
+  "content": {
+    "model": "mistral-large-latest",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Distilled Context: User provided a curl command fragment: `-H \"Content-Type: application/json\" \\`, indicating they want to set the request’s Content-Type header to JSON."
+      }
+    ]
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "url": "https://api.mistral.ai/v1/chat/completions",
+  "status": 200,
+  "headers": {
+    "Date": "Mon, 29 Jun 2026 15:03:00 GMT",
+    "Content-Type": "application/json",
+    "Transfer-Encoding": "chunked",
+    "Connection": "keep-alive",
+    "mistral-correlation-id": "019f13e7-a903-71b7-bd07-d855143c5a28",
+    "x-kong-request-id": "019f13e7-a903-71b7-bd07-d855143c5a28",
+    "x-max-retry-attempts-reached": "false",
+    "x-ratelimit-limit-tokens-minute": "625000",
+    "x-ratelimit-remaining-tokens-minute": "624613",
+    "x-ratelimit-tokens-query-cost": "273",
+    "x-ratelimit-limit-req-minute": "188",
+    "x-ratelimit-remaining-req-minute": "186",
+    "x-envoy-upstream-service-time": "3693",
+    "Server": "cloudflare",
+    "access-control-allow-origin": "*",
+    "x-kong-upstream-latency": "3694",
+    "x-kong-proxy-latency": "9",
+    "cf-cache-status": "DYNAMIC",
+    "X-Content-Type-Options": "nosniff",
+    "Strict-Transport-Security": "max-age=15552000; includeSubDomains; preload",
+    "Content-Encoding": "br",
+    "CF-RAY": "a135d0ae6f931806-ARN",
+    "alt-svc": "h3=\":443\"; ma=86400"
+  },
+  "content": "{\"id\":\"4737252f9ced4ac9b21a9252b7655628\",\"created\":1782745377,\"model\":\"ministral-8b-latest\",\"usage\":{\"prompt_tokens\":15,\"total_tokens\":273,\"completion_tokens\":258,\"prompt_tokens_details\":{\"cached_tokens\":0}},\"object\":\"chat.completion\",\"choices\":[{\"index\":0,\"finish_reason\":\"stop\",\"message\":{\"role\":\"assistant\",\"tool_calls\":null,\"content\":\"Вот несколько вариантов ответов на \\\"как жизнь?\\\" в зависимости от контекста и настроения:\\n\\n1. **Обычный, нейтральный ответ:**\\n   *\\\"Все хорошо, спасибо! А у тебя?\\\"*\\n\\n2. **С легкой иронией или шуткой:**\\n   *\\\"Жизнь? Да так себе, но я выживаю! А как у тебя?\\\"*\\n\\n3. **Позитивный и энергичный:**\\n   *\\\"Отлично! Полна сил и планов! А как ты?\\\"*\\n\\n4. **С легкой ностальгией или грустью:**\\n   *\\\"Неплохо, но иногда кажется, что время летит слишком быстро... А у тебя как?\\\"*\\n\\n5. **С юмором и самоиронией:**\\n   *\\\"Жизнь? Это постоянный баланс между кофе и сном. А ты как?\\\"*\\n\\n6. **Если хочется поделиться чем-то конкретным:**\\n   *\\\"В целом все нормально, но недавно начал/закончил [что-то интересное]! А у тебя что нового?\\\"*\\n\\nВыбери то, что лучше всего подходит под твоё настроение или ситуацию! 😊\"}}]}"
+}

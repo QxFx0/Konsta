@@ -1,0 +1,11 @@
+{
+  "content": {
+    "model": "mistral-tiny",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Distilled Context: User requests a project audit for the codebase located at /home/liskil/ERESS."
+      }
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "content": {
+    "model": "mistral-large-latest",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Distilled Context: Security must meet GDPR and HIPAA compliance, employ a Zero Trust model using JWT for authentication, RBAC for authorization, and AES‑256 encryption for data protection."
+      }
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "content": {
+    "model": "mistral-large-latest",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Distilled Context: User referenced a confidential “SYSTEM ARCHITECTURE DOCUMENT V4.2” but provided no additional content or context."
+      }
+    ]
+  }
+}

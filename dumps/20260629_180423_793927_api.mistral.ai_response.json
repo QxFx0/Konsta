@@ -1,0 +1,30 @@
+{
+  "url": "https://api.mistral.ai/v1/chat/completions",
+  "status": 200,
+  "headers": {
+    "Date": "Mon, 29 Jun 2026 15:04:23 GMT",
+    "Content-Type": "application/json",
+    "Transfer-Encoding": "chunked",
+    "Connection": "keep-alive",
+    "mistral-correlation-id": "019f13e8-f588-7cb9-9318-b037e8263d49",
+    "x-kong-request-id": "019f13e8-f588-7cb9-9318-b037e8263d49",
+    "x-max-retry-attempts-reached": "false",
+    "x-ratelimit-limit-tokens-minute": "625000",
+    "x-ratelimit-remaining-tokens-minute": "624862",
+    "x-ratelimit-tokens-query-cost": "138",
+    "x-ratelimit-limit-req-minute": "188",
+    "x-ratelimit-remaining-req-minute": "187",
+    "x-envoy-upstream-service-time": "1430",
+    "Server": "cloudflare",
+    "access-control-allow-origin": "*",
+    "x-kong-upstream-latency": "1432",
+    "x-kong-proxy-latency": "16",
+    "cf-cache-status": "DYNAMIC",
+    "X-Content-Type-Options": "nosniff",
+    "Strict-Transport-Security": "max-age=15552000; includeSubDomains; preload",
+    "Content-Encoding": "br",
+    "CF-RAY": "a135d2c26c758a18-ARN",
+    "alt-svc": "h3=\":443\"; ma=86400"
+  },
+  "content": "{\"id\":\"db3a9fabc24d4527a496a197af4a832b\",\"created\":1782745462,\"model\":\"ministral-8b-latest\",\"usage\":{\"prompt_tokens\":17,\"total_tokens\":138,\"completion_tokens\":121,\"prompt_tokens_details\":{\"cached_tokens\":0}},\"object\":\"chat.completion\",\"choices\":[{\"index\":0,\"finish_reason\":\"stop\",\"message\":{\"role\":\"assistant\",\"tool_calls\":null,\"content\":\"The assistant you're interacting with is part of the **AI21 Labs** ecosystem, specifically designed to provide helpful, creative, and engaging responses. AI21 Labs is a leading AI research company focused on developing advanced natural language processing (NLP) and generative AI technologies. This assistant leverages AI21 Labs' **Jurassic-2** models and other cutting-edge tools to deliver accurate, context-aware, and human-like interactions.\\n\\nIf you're referring to a specific project or initiative within AI21 Labs, let me know, and I can provide more tailored details!\"}}]}"
+}

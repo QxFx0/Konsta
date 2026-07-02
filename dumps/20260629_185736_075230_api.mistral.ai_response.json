@@ -1,0 +1,32 @@
+{
+  "url": "https://api.mistral.ai/v1/chat/completions",
+  "status": 200,
+  "headers": {
+    "Date": "Mon, 29 Jun 2026 15:57:35 GMT",
+    "Content-Type": "application/json",
+    "Transfer-Encoding": "chunked",
+    "Connection": "keep-alive",
+    "mistral-correlation-id": "019f1419-a66a-71be-8968-7f733c4e92fb",
+    "x-kong-request-id": "019f1419-a66a-71be-8968-7f733c4e92fb",
+    "x-max-retry-attempts-reached": "false",
+    "x-ratelimit-limit-tokens-minute": "250000",
+    "x-ratelimit-remaining-tokens-minute": "249798",
+    "x-ratelimit-tokens-query-cost": "202",
+    "x-ratelimit-limit-req-minute": "4",
+    "x-ratelimit-remaining-req-minute": "3",
+    "x-envoy-upstream-service-time": "2680",
+    "Server": "cloudflare",
+    "access-control-allow-origin": "*",
+    "x-kong-upstream-latency": "2681",
+    "x-kong-proxy-latency": "16",
+    "cf-cache-status": "DYNAMIC",
+    "X-Content-Type-Options": "nosniff",
+    "Strict-Transport-Security": "max-age=15552000; includeSubDomains; preload",
+    "Content-Encoding": "br",
+    "CF-RAY": "a13620aa29c42d9e-ARN",
+    "alt-svc": "h3=\":443\"; ma=86400",
+    "X-Konsta-Original-Size": "80",
+    "X-Konsta-Compressed-Size": "232"
+  },
+  "content": "{\"id\":\"c18be951d8d0451d8126f7d317d77c45\",\"created\":1782748653,\"model\":\"mistral-large-latest\",\"usage\":{\"prompt_tokens\":31,\"total_tokens\":202,\"completion_tokens\":171,\"prompt_tokens_details\":{\"cached_tokens\":0}},\"object\":\"chat.completion\",\"choices\":[{\"index\":0,\"finish_reason\":\"stop\",\"message\":{\"role\":\"assistant\",\"tool_calls\":null,\"content\":\"It looks like you started typing a command with the `-d` option but didn't finish. Could you clarify what you're trying to do?\\n\\nThe `-d` flag is commonly used in command-line tools for:\\n- **Debug mode** (e.g., `npm run -d`, `docker -d`)\\n- **Detach mode** (e.g., `docker run -d`)\\n- **Directory specification** (e.g., `ls -d`)\\n- **Other tool-specific purposes** (e.g., `tar -d`, `grep -d`)\\n\\nLet me know:\\n1. Which command/tool you're using (e.g., `docker`, `git`, `tar`).\\n2. The full context (e.g., \\\"I want to run a container in the background\\\").\\n\\nI’ll help you complete the command!\"}}]}"
+}

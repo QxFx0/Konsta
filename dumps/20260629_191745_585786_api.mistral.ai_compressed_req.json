@@ -1,0 +1,11 @@
+{
+  "content": {
+    "model": "mistral-large-latest",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Distilled Context: The user recommends a redundancy design employing three Availability Zones per region, coupled with a heartbeat‑based failover that activates after three missed cycles, thereby preventing downtime that would cost $50 k per minute."
+      }
+    ]
+  }
+}

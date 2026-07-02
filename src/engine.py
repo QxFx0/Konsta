@@ -148,7 +148,7 @@ class KonstaEngine:
     # Public entry points
     # ------------------------------------------------------------------
 
-    def process_request(self, adapter: ProxyAdapter, request: Any) -> None:
+    async def process_request(self, adapter: ProxyAdapter, request: Any) -> None:
         """Apply context compression to ``request`` via ``adapter``.
 
         Performs the same pipeline as the legacy
@@ -189,7 +189,7 @@ class KonstaEngine:
                 ),
             })
 
-            compressed_json = self._compress_and_rewrite(adapter, request, host)
+            compressed_json = await self._compress_and_rewrite(adapter, request, host)
             if compressed_json is None:
                 # Either the body was unsuitable for compression or the
                 # compression pipeline returned nothing. In both cases
@@ -257,7 +257,7 @@ class KonstaEngine:
 
         return True
 
-    def _compress_and_rewrite(
+    async def _compress_and_rewrite(
         self, adapter: ProxyAdapter, request: Any, host: str
     ) -> Optional[str]:
         """Parse, compress, and rewrite ``request`` body in place.
@@ -290,7 +290,7 @@ class KonstaEngine:
         if not parsed_request:
             return None
 
-        compressed_request = self.compress_context(parsed_request)
+        compressed_request = await self.compress_context(parsed_request)
         if not compressed_request:
             return None
 
@@ -379,7 +379,7 @@ class KonstaEngine:
     # Compression helpers
     # ------------------------------------------------------------------
 
-    def compress_context(
+    async def compress_context(
         self,
         request_data: Dict[str, Any],
     ) -> Optional[Dict[str, Any]]:

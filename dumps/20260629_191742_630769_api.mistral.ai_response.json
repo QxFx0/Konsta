@@ -1,0 +1,32 @@
+{
+  "url": "https://api.mistral.ai/v1/chat/completions",
+  "status": 200,
+  "headers": {
+    "Date": "Mon, 29 Jun 2026 16:17:42 GMT",
+    "Content-Type": "application/json",
+    "Transfer-Encoding": "chunked",
+    "Connection": "keep-alive",
+    "mistral-correlation-id": "019f142c-1166-735f-ad77-bfbc17a94d3b",
+    "x-kong-request-id": "019f142c-1166-735f-ad77-bfbc17a94d3b",
+    "x-max-retry-attempts-reached": "false",
+    "x-ratelimit-limit-tokens-minute": "250000",
+    "x-ratelimit-remaining-tokens-minute": "249863",
+    "x-ratelimit-tokens-query-cost": "137",
+    "x-ratelimit-limit-req-minute": "4",
+    "x-ratelimit-remaining-req-minute": "3",
+    "x-envoy-upstream-service-time": "2198",
+    "Server": "cloudflare",
+    "access-control-allow-origin": "*",
+    "x-kong-upstream-latency": "2198",
+    "x-kong-proxy-latency": "17",
+    "cf-cache-status": "DYNAMIC",
+    "X-Content-Type-Options": "nosniff",
+    "Strict-Transport-Security": "max-age=15552000; includeSubDomains; preload",
+    "Content-Encoding": "br",
+    "CF-RAY": "a1363e223e5121e9-ARN",
+    "alt-svc": "h3=\":443\"; ma=86400",
+    "X-Konsta-Original-Size": "85",
+    "X-Konsta-Compressed-Size": "312"
+  },
+  "content": "{\"id\":\"a2991fc2118547cfb8e85b560d151617\",\"created\":1782749860,\"model\":\"mistral-large-latest\",\"usage\":{\"prompt_tokens\":44,\"total_tokens\":137,\"completion_tokens\":93,\"prompt_tokens_details\":{\"cached_tokens\":0}},\"object\":\"chat.completion\",\"choices\":[{\"index\":0,\"finish_reason\":\"stop\",\"message\":{\"role\":\"assistant\",\"tool_calls\":null,\"content\":\"It looks like you'd like to discuss \\\"Core Specs\\\"—could you clarify what you're referring to?\\n\\nFor example:\\n- Are these **hardware specs** (CPU, GPU, RAM, etc.) for a PC or device?\\n- **Software specs** (OS, libraries, frameworks) for a project?\\n- **Game or app specs** (minimum/recommended requirements)?\\n- Something else entirely (e.g., product specs, engineering specs)?\"}}]}"
+}

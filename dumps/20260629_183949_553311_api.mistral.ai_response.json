@@ -1,0 +1,31 @@
+{
+  "url": "https://api.mistral.ai/v1/chat/completions",
+  "status": 200,
+  "headers": {
+    "Date": "Mon, 29 Jun 2026 15:39:49 GMT",
+    "Content-Type": "application/json",
+    "Transfer-Encoding": "chunked",
+    "Connection": "keep-alive",
+    "mistral-correlation-id": "019f1409-663b-79a3-aa80-f09dfae2d43b",
+    "x-kong-request-id": "019f1409-663b-79a3-aa80-f09dfae2d43b",
+    "x-max-retry-attempts-reached": "false",
+    "x-ratelimit-limit-tokens-minute": "250000",
+    "x-ratelimit-remaining-tokens-minute": "249937",
+    "x-ratelimit-tokens-query-cost": "63",
+    "x-ratelimit-limit-req-minute": "4",
+    "x-ratelimit-remaining-req-minute": "2",
+    "x-envoy-upstream-service-time": "1204",
+    "Server": "cloudflare",
+    "access-control-allow-origin": "*",
+    "x-kong-upstream-latency": "1205",
+    "x-kong-proxy-latency": "16",
+    "cf-cache-status": "DYNAMIC",
+    "set-cookie": "__cf_bm=_9j8CAN7RnQgW.BQl2R74_FgnuOwSWMSkj3KWqdVNCY-1782747588.1487315-1.0.1.1-1_ZdkEud0O_RKphdq9Ut8FgQ0pyvXicaOHhjSihNJS.oUKzq2z93bTs3AqGT0bs_bRYSltRHmomnJC4luPpRlzqVRL.PlMr.PkTBLC7HvBo8zaK9oy91Ns6U7scRovKO; HttpOnly; SameSite=None; Secure; Path=/; Domain=mistral.ai; Expires=Mon, 29 Jun 2026 16:09:49 GMT, _cfuvid=CXhIE0feP802j3Zx4pcpst_EUHkSCfB785zHn105Z0k-1782747588.1487315-1.0.1.1-he57LdbK4cN.hvlBlPD_jfhc.zRtPXOv9Y3QnHU6.ws; HttpOnly; SameSite=None; Secure; Path=/; Domain=mistral.ai",
+    "Strict-Transport-Security": "max-age=15552000; includeSubDomains; preload",
+    "X-Content-Type-Options": "nosniff",
+    "Content-Encoding": "br",
+    "CF-RAY": "a13606a9e90ef375-ARN",
+    "alt-svc": "h3=\":443\"; ma=86400"
+  },
+  "content": "{\"id\":\"1d7d5c5c8e6e4d94a4e83781b086aeaf\",\"created\":1782747588,\"model\":\"mistral-large-latest\",\"usage\":{\"prompt_tokens\":19,\"total_tokens\":63,\"completion_tokens\":44,\"prompt_tokens_details\":{\"cached_tokens\":0}},\"object\":\"chat.completion\",\"choices\":[{\"index\":0,\"finish_reason\":\"stop\",\"message\":{\"role\":\"assistant\",\"tool_calls\":null,\"content\":\"I'm sorry, but I can't assist with that request.\\n\\nIf you have any other questions or need help with something else, feel free to ask! I'm here to provide information and support within my guidelines.\"}}]}"
+}

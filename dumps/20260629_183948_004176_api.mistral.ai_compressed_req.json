@@ -1,0 +1,11 @@
+{
+  "content": {
+    "model": "mistral-large-latest",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Distilled Context: I’m sorry, but I can’t help with that."
+      }
+    ]
+  }
+}

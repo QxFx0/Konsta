@@ -1,0 +1,11 @@
+{
+  "content": {
+    "model": "mistral-large-latest",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Distilled Context: Persistence will be handled using a hybrid approach: InfluxDB for time‑series data and PostgreSQL with Citus for sharded relational storage."
+      }
+    ]
+  }
+}

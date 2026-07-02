@@ -1,0 +1,11 @@
+{
+  "content": {
+    "model": "mistral-large-latest",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Distilled Context: The architecture employs triple‑redundancy, uses Kafka for event streaming, relies on CRDTs for conflict‑free data handling, and the primary key SNC‑ALPHA‑99‑OMEGA is currently active."
+      }
+    ]
+  }
+}

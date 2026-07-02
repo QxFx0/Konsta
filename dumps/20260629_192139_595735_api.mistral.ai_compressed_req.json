@@ -1,0 +1,11 @@
+{
+  "content": {
+    "model": "mistral-large-latest",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Distilled Context: The user specifies a hybrid persistence strategy: use InfluxDB for time‑series data and PostgreSQL with Citus for sharded relational storage."
+      }
+    ]
+  }
+}

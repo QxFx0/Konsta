@@ -1,0 +1,32 @@
+{
+  "url": "https://api.mistral.ai/v1/chat/completions",
+  "status": 200,
+  "headers": {
+    "Date": "Mon, 29 Jun 2026 16:07:27 GMT",
+    "Content-Type": "application/json",
+    "Transfer-Encoding": "chunked",
+    "Connection": "keep-alive",
+    "mistral-correlation-id": "019f1422-4da0-7837-9b69-1a1eac2d9c4c",
+    "x-kong-request-id": "019f1422-4da0-7837-9b69-1a1eac2d9c4c",
+    "x-max-retry-attempts-reached": "false",
+    "x-ratelimit-limit-tokens-minute": "250000",
+    "x-ratelimit-remaining-tokens-minute": "248698",
+    "x-ratelimit-tokens-query-cost": "1302",
+    "x-ratelimit-limit-req-minute": "4",
+    "x-ratelimit-remaining-req-minute": "3",
+    "x-envoy-upstream-service-time": "26950",
+    "Server": "cloudflare",
+    "access-control-allow-origin": "*",
+    "x-kong-upstream-latency": "26951",
+    "x-kong-proxy-latency": "10",
+    "cf-cache-status": "DYNAMIC",
+    "X-Content-Type-Options": "nosniff",
+    "Strict-Transport-Security": "max-age=15552000; includeSubDomains; preload",
+    "Content-Encoding": "br",
+    "CF-RAY": "a1362e8288f89924-ARN",
+    "alt-svc": "h3=\":443\"; ma=86400",
+    "X-Konsta-Original-Size": "172",
+    "X-Konsta-Compressed-Size": "206"
+  },
+  "content": "{\"id\":\"c613478f6ea445e68c126acfe8881f6b\",\"created\":1782749220,\"model\":\"mistral-large-latest\",\"usage\":{\"prompt_tokens\":35,\"total_tokens\":1302,\"completion_tokens\":1267,\"prompt_tokens_details\":{\"cached_tokens\":0}},\"object\":\"chat.completion\",\"choices\":[{\"index\":0,\"finish_reason\":\"stop\",\"message\":{\"role\":\"assistant\",\"tool_calls\":null,\"content\":\"Here’s a distilled security procedure for managing the **SNC-ALPHA-99-OMEGA** master key rotation:\\n\\n---\\n\\n### **Master Key Rotation Procedure**\\n**Key ID:** `SNC-ALPHA-99-OMEGA`\\n**Rotation Frequency:** Every **90 days** (or sooner if compromised)\\n**Scope:** Global state coordinator (production environment)\\n\\n---\\n\\n### **1. Pre-Rotation Checklist**\\n✅ **Verify Backup Integrity**\\n   - Confirm encrypted backups of the current key exist in **offline cold storage** (e.g., HSM, air-gapped vault).\\n   - Test backup restoration in a **staging environment**.\\n\\n✅ **Audit Access**\\n   - Review IAM policies to ensure only **authorized personnel** (e.g., DevOps/Security teams) can initiate rotations.\\n   - Rotate **supporting credentials** (e.g., API keys, service accounts) tied to the key.\\n\\n✅ **Schedule Downtime (if required)**\\n   - Coordinate with stakeholders for a **maintenance window** (if the key rotation requires service restarts).\\n   - Communicate the change via **#prod-alerts** and email.\\n\\n✅ **Prepare New Key**\\n   - Generate a **new cryptographically secure key** (e.g., 256-bit AES, RSA-4096) using a **FIPS 140-2 compliant** tool (e.g., OpenSSL, AWS KMS, HashiCorp Vault).\\n   - Store the new key in a **temporary secure location** (e.g., encrypted file, HSM partition).\\n\\n---\\n\\n### **2. Rotation Execution**\\n#### **Step 1: Deploy New Key**\\n   - **Option A (Zero-Downtime):**\\n     1. Update the global state coordinator’s configuration to **accept both keys** (old + new) during a transition period.\\n     2. Gradually re-encrypt data with the new key (e.g., via a rolling update).\\n     3. Monitor logs for errors (e.g., failed decryptions).\\n   - **Option B (Full Rotation):**\\n     1. Stop all dependent services.\\n     2. Replace the old key with the new key in the coordinator’s configuration.\\n     3. Restart services.\\n\\n#### **Step 2: Validate**\\n   - **Functional Tests:**\\n     - Verify state coordinator can **read/write** data without errors.\\n     - Test critical workflows (e.g., cross-region sync, failover).\\n   - **Security Tests:**\\n     - Confirm the old key **no longer decrypts** new data.\\n     - Audit logs for unauthorized access attempts.\\n\\n#### **Step 3: Decommission Old Key**\\n   - **Revoke Access:**\\n     - Remove the old key from all systems (e.g., config files, secrets managers).\\n   - **Secure Deletion:**\\n     - Overwrite the old key in memory/disk (e.g., `shred` on Linux, `sdelete` on Windows).\\n     - For HSMs, use the vendor’s **key destruction** procedure.\\n   - **Update Documentation:**\\n     - Record the rotation in the **key inventory log** (e.g., Confluence, Git repo).\\n     - Update **runbooks** with the new key’s metadata (e.g., creation date, next rotation).\\n\\n---\\n\\n### **3. Post-Rotation**\\n🔍 **Monitor for Anomalies**\\n   - Set up alerts for:\\n     - Failed decryption attempts (possible key leakage).\\n     - Unauthorized key access (e.g., via SIEM tools like Splunk or Datadog).\\n\\n📅 **Schedule Next Rotation**\\n   - Set a calendar reminder for **80 days** (10-day buffer) to prepare for the next rotation.\\n   - Automate reminders via tools like **PagerDuty** or **Opsgenie**.\\n\\n🔄 **Automate (Optional)**\\n   - Use **infrastructure-as-code (IaC)** (e.g., Terraform, Ansible) to automate key rotation where possible.\\n   - Integrate with **secrets managers** (e.g., AWS Secrets Manager, Vault) for auto-rotation.\\n\\n---\\n\\n### **4. Incident Response (Key Compromise)**\\n🚨 **Immediate Actions:**\\n   1. **Revoke the compromised key** across all systems.\\n   2. **Rotate all dependent credentials** (e.g., API keys, certificates).\\n   3. **Forensic Analysis:**\\n      - Check logs for unauthorized access (e.g., IP addresses, timestamps).\\n      - Determine the **blast radius** (e.g., which data was exposed).\\n   4. **Notify Stakeholders:**\\n      - Follow **incident response playbook** (e.g., escalate to CISO, legal).\\n      - Disclose to affected parties if required by **compliance** (e.g., GDPR, HIPAA).\\n\\n---\\n\\n### **5. Compliance & Documentation**\\n📜 **Required Records:**\\n   - **Key Rotation Log:** Date, old/new key IDs, approvers.\\n   - **Access Logs:** Who accessed the key and when.\\n   - **Backup Verification:** Proof of successful backup/restore tests.\\n\\n🔐 **Compliance Standards:**\\n   - **NIST SP 800-53:** SC-12 (Cryptographic Key Establishment).\\n   - **ISO 27001:** A.10.1.2 (Key Management).\\n   - **SOC 2:** CC6.1 (Logical Access Controls).\\n\\n---\\n\\n### **Tools & References**\\n- **Key Generation:** OpenSSL, AWS KMS, HashiCorp Vault.\\n- **Secrets Management:** AWS Secrets Manager, Azure Key Vault, Google Cloud KMS.\\n- **Automation:** Terraform, Ansible, Kubernetes Secrets.\\n- **Monitoring:** Splunk, Datadog, ELK Stack.\\n\\n---\\n**Note:** Always test rotations in a **non-production environment** first!\"}}]}"
+}

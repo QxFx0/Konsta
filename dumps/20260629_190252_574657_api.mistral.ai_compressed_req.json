@@ -1,0 +1,11 @@
+{
+  "content": {
+    "model": "mistral-large-latest",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Distilled Context: User provided a reference to a confidential document titled “ARCH‑DOC V4.2”."
+      }
+    ]
+  }
+}

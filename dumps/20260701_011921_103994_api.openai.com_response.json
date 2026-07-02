@@ -1,0 +1,9 @@
+{
+  "url": "https://api.openai.com/v1/chat",
+  "status": 200,
+  "headers": {
+    "X-Konsta-Original-Size": "100",
+    "X-Konsta-Compressed-Size": "0"
+  },
+  "content": "hello"
+}

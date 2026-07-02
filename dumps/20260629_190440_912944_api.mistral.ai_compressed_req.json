@@ -1,0 +1,11 @@
+{
+  "content": {
+    "model": "mistral-large-latest",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Distilled Context: Redundancy: Deploy three Availability Zones per region. Implement a heartbeat failover with a three‑cycle threshold to prevent costly downtime (≈ $50 k per minute)."
+      }
+    ]
+  }
+}

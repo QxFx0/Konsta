@@ -1,0 +1,11 @@
+{
+  "content": {
+    "model": "mistral-large-latest",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Distilled Context: SNC provides high availability across US‑East, EU‑West, and AP‑South regions by delivering low‑latency reads while enforcing strict write consistency."
+      }
+    ]
+  }
+}

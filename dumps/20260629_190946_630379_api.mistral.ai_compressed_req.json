@@ -1,0 +1,11 @@
+{
+  "content": {
+    "model": "mistral-large-latest",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Distilled Context: User reports system status: nodes are operational, shards 45‑47 are synchronized, and latency is approximately 12 ms."
+      }
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "content": {
+    "model": "mistral-large-latest",
+    "messages": [
+      {
+        "role": "user",
+        "content": "5. Security: GDPR/HIPAA compliant. Zero Trust via JWT/RBAC and AES-256."
+      }
+    ]
+  }
+}

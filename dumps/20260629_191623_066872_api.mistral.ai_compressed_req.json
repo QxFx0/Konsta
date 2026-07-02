@@ -1,0 +1,11 @@
+{
+  "content": {
+    "model": "mistral-large-latest",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Distilled Context: User is inquiring about SNC’s distributed state synchronization."
+      }
+    ]
+  }
+}

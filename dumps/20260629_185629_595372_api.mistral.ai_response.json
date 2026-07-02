@@ -1,0 +1,32 @@
+{
+  "url": "https://api.mistral.ai/v1/chat/completions",
+  "status": 200,
+  "headers": {
+    "Date": "Mon, 29 Jun 2026 15:56:29 GMT",
+    "Content-Type": "application/json",
+    "Transfer-Encoding": "chunked",
+    "Connection": "keep-alive",
+    "mistral-correlation-id": "019f1418-9a6e-7c98-a911-c81ede42fdc0",
+    "x-kong-request-id": "019f1418-9a6e-7c98-a911-c81ede42fdc0",
+    "x-max-retry-attempts-reached": "false",
+    "x-ratelimit-limit-tokens-minute": "250000",
+    "x-ratelimit-remaining-tokens-minute": "249498",
+    "x-ratelimit-tokens-query-cost": "232",
+    "x-ratelimit-limit-req-minute": "4",
+    "x-ratelimit-remaining-req-minute": "2",
+    "x-envoy-upstream-service-time": "4975",
+    "Server": "cloudflare",
+    "access-control-allow-origin": "*",
+    "x-kong-upstream-latency": "4977",
+    "x-kong-proxy-latency": "13",
+    "cf-cache-status": "DYNAMIC",
+    "X-Content-Type-Options": "nosniff",
+    "Strict-Transport-Security": "max-age=15552000; includeSubDomains; preload",
+    "Content-Encoding": "br",
+    "CF-RAY": "a1361efd7d12829a-ARN",
+    "alt-svc": "h3=\":443\"; ma=86400",
+    "X-Konsta-Original-Size": "114",
+    "X-Konsta-Compressed-Size": "259"
+  },
+  "content": "{\"id\":\"3c4a98722d9749588e84b75388f61933\",\"created\":1782748584,\"model\":\"mistral-large-latest\",\"usage\":{\"prompt_tokens\":39,\"total_tokens\":232,\"completion_tokens\":193,\"prompt_tokens_details\":{\"cached_tokens\":0}},\"object\":\"chat.completion\",\"choices\":[{\"index\":0,\"finish_reason\":\"stop\",\"message\":{\"role\":\"assistant\",\"tool_calls\":null,\"content\":\"To set the `Content-Type` header to `application/json` in your `curl` command, you've already included the correct fragment:\\n\\n```sh\\n-H \\\"Content-Type: application/json\\\" \\\\\\n```\\n\\n### Full Example:\\nIf you're sending a JSON payload in a `POST` request, your complete `curl` command might look like this:\\n\\n```sh\\ncurl -X POST \\\\\\n  https://example.com/api/endpoint \\\\\\n  -H \\\"Content-Type: application/json\\\" \\\\\\n  -d '{\\\"key\\\": \\\"value\\\"}'\\n```\\n\\n### Key Notes:\\n1. **`-H`**: Sets a header (here, `Content-Type`).\\n2. **`-d`**: Sends the request body (must match the `Content-Type`).\\n3. **Escape Quotes**: If your JSON contains single quotes, escape them or use double quotes for the outer shell (e.g., `-d \\\"{\\\\\\\"key\\\\\\\": \\\\\\\"value\\\\\\\"}\\\"`).\"}}]}"
+}

@@ -1,0 +1,33 @@
+{
+  "url": "https://api.mistral.ai/v1/chat/completions",
+  "status": 200,
+  "headers": {
+    "Date": "Mon, 29 Jun 2026 15:54:19 GMT",
+    "Content-Type": "application/json",
+    "Transfer-Encoding": "chunked",
+    "Connection": "keep-alive",
+    "mistral-correlation-id": "019f1416-ace4-7500-bc60-fc0ce0fab127",
+    "x-kong-request-id": "019f1416-ace4-7500-bc60-fc0ce0fab127",
+    "x-max-retry-attempts-reached": "false",
+    "x-ratelimit-limit-tokens-minute": "250000",
+    "x-ratelimit-remaining-tokens-minute": "249925",
+    "x-ratelimit-tokens-query-cost": "75",
+    "x-ratelimit-limit-req-minute": "4",
+    "x-ratelimit-remaining-req-minute": "3",
+    "x-envoy-upstream-service-time": "1229",
+    "Server": "cloudflare",
+    "access-control-allow-origin": "*",
+    "x-kong-upstream-latency": "1230",
+    "x-kong-proxy-latency": "14",
+    "cf-cache-status": "DYNAMIC",
+    "set-cookie": "__cf_bm=WFNLJGsISm_dD2S2xas5ThUjuOhqT4ks3cB74i64w1M-1782748458.2073073-1.0.1.1-MsyYpE2_mWmIpR1qUDNgA6QxiORbIUnDO9Bt.wkpLvw7y5hBTc604J.m9Zom0nCFI2VEAhMozcyleJxbt9F53DjUZo2hJNDyaVF33uSRiUVFWcQ1hoUpX_wki7pB153J; HttpOnly; SameSite=None; Secure; Path=/; Domain=mistral.ai; Expires=Mon, 29 Jun 2026 16:24:19 GMT, _cfuvid=oHKmLM3ABCcJ6Rkhz9TQpMljXPTcgAXqoy9ijOeekDQ-1782748458.2073073-1.0.1.1-vJEqPr0OgYV4JimKyKdtlCZoZMukQOIHUiyR9_Uefrk; HttpOnly; SameSite=None; Secure; Path=/; Domain=mistral.ai",
+    "Strict-Transport-Security": "max-age=15552000; includeSubDomains; preload",
+    "X-Content-Type-Options": "nosniff",
+    "Content-Encoding": "br",
+    "CF-RAY": "a1361be7cb47adee-ARN",
+    "alt-svc": "h3=\":443\"; ma=86400",
+    "X-Konsta-Original-Size": "410",
+    "X-Konsta-Compressed-Size": "271"
+  },
+  "content": "{\"id\":\"ebe52eec2be243fda5860d97636c2051\",\"created\":1782748458,\"model\":\"mistral-large-latest\",\"usage\":{\"prompt_tokens\":45,\"total_tokens\":75,\"completion_tokens\":30,\"prompt_tokens_details\":{\"cached_tokens\":0}},\"object\":\"chat.completion\",\"choices\":[{\"index\":0,\"finish_reason\":\"stop\",\"message\":{\"role\":\"assistant\",\"tool_calls\":null,\"content\":\"The secret access code for the library basement archive in City X is **7749-B**, as mentioned in the log entry you shared.\"}}]}"
+}

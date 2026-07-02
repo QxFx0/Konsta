@@ -137,6 +137,9 @@ def main() -> None:
 
     # 2. Launch mitmdump as a subprocess; stream its output until the user
     # interrupts or the process exits.
+    #
+    # Before launching, we ensure that the proxy is configured with the required
+    # auth middleware and settings.
     launch_proxy(proxy=proxy, config=config)
 
 

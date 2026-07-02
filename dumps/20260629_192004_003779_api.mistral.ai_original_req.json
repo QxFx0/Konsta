@@ -1,0 +1,15 @@
+{
+  "url": "https://api.mistral.ai/v1/chat/completions",
+  "headers": {
+    "Host": "api.mistral.ai",
+    "Accept": "*/*",
+    "Accept-Encoding": "gzip, deflate, br, zstd",
+    "Connection": "keep-alive",
+    "User-Agent": "python-httpx/0.28.1",
+    "Content-Type": "application/json",
+    "Authorization": "Bearer BDmosrSiKNU0voYg93UYDKIRj6VQDI4k",
+    "Cookie": "__cf_bm=wbJS4R16mqnGs_.IG6HMBc3YVXnb9kHl6Hx3HAohbUo-1782749766.2295163-1.0.1.1-PTl3XlQLvnT0tZd5eThGKf3IY5x7KZsgoI731S__56lKFMCWlMLxAJFW.06D9CseKxQgOqit7QWt.bycyjJsJCjzNa_K3hm0n3XGzXv1jxHGYtfeEDU7Sfbe8xTgqlPg; _cfuvid=QHDNLsPGhrJRXyc7SqXHq5999mpPmDB0fzilG9x_ws4-1782749766.2295163-1.0.1.1-tJGpK2dv8m4LUY8ZnD2gbNCDKoN2NMTMrLfUdOYPXls",
+    "Content-Length": "166"
+  },
+  "content": "{\"model\":\"mistral-large-latest\",\"messages\":[{\"role\":\"user\",\"content\":\"4. Latency: Multi-tier cache (L1: In-memory, L2: Regional Redis, L3: Global) for <10ms TTFB.\"}]}"
+}

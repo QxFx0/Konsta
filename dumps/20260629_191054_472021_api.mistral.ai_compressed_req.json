@@ -1,0 +1,11 @@
+{
+  "content": {
+    "model": "mistral-large-latest",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Distilled Context: The system employs triple redundancy, utilizes Kafka for messaging, integrates CRDTs for data consistency, and the master key SNC‑ALPHA‑99‑OMEGA is currently active."
+      }
+    ]
+  }
+}

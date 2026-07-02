@@ -1,0 +1,11 @@
+{
+  "content": {
+    "model": "mistral-large-latest",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Distilled Context: User posted a curl command targeting the Mistral AI chat completions endpoint (`https://api.mistral.ai/v1/chat/completions`)."
+      }
+    ]
+  }
+}

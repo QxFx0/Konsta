@@ -1,0 +1,11 @@
+{
+  "content": {
+    "model": "mistral-large-latest",
+    "messages": [
+      {
+        "role": "user",
+        "content": "[ARCH-DOC V4.2 - CONFIDENTIAL]"
+      }
+    ]
+  }
+}

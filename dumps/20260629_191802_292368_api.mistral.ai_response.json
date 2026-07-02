@@ -1,0 +1,32 @@
+{
+  "url": "https://api.mistral.ai/v1/chat/completions",
+  "status": 200,
+  "headers": {
+    "Date": "Mon, 29 Jun 2026 16:18:02 GMT",
+    "Content-Type": "application/json",
+    "Transfer-Encoding": "chunked",
+    "Connection": "keep-alive",
+    "mistral-correlation-id": "019f142c-26cd-7e9b-88e9-f77dad0620f3",
+    "x-kong-request-id": "019f142c-26cd-7e9b-88e9-f77dad0620f3",
+    "x-max-retry-attempts-reached": "false",
+    "x-ratelimit-limit-tokens-minute": "250000",
+    "x-ratelimit-remaining-tokens-minute": "248834",
+    "x-ratelimit-tokens-query-cost": "1029",
+    "x-ratelimit-limit-req-minute": "4",
+    "x-ratelimit-remaining-req-minute": "2",
+    "x-envoy-upstream-service-time": "16485",
+    "Server": "cloudflare",
+    "access-control-allow-origin": "*",
+    "x-kong-upstream-latency": "16487",
+    "x-kong-proxy-latency": "15",
+    "cf-cache-status": "DYNAMIC",
+    "X-Content-Type-Options": "nosniff",
+    "Strict-Transport-Security": "max-age=15552000; includeSubDomains; preload",
+    "Content-Encoding": "br",
+    "CF-RAY": "a1363e446f8721e9-ARN",
+    "alt-svc": "h3=\":443\"; ma=86400",
+    "X-Konsta-Original-Size": "175",
+    "X-Konsta-Compressed-Size": "341"
+  },
+  "content": "{\"id\":\"cb5158c8c9784b6c974658a5d3736246\",\"created\":1782749865,\"model\":\"mistral-large-latest\",\"usage\":{\"prompt_tokens\":51,\"total_tokens\":1029,\"completion_tokens\":978,\"prompt_tokens_details\":{\"cached_tokens\":0}},\"object\":\"chat.completion\",\"choices\":[{\"index\":0,\"finish_reason\":\"stop\",\"message\":{\"role\":\"assistant\",\"tool_calls\":null,\"content\":\"Here’s a distilled **High-Availability (HA) Architecture Proposal** based on your redundancy design and failover requirements:\\n\\n---\\n\\n### **1. Multi-AZ Redundancy (3 AZs per Region)**\\n- **Deployment**: Distribute critical workloads (e.g., databases, app servers, load balancers) across **3 Availability Zones (AZs)** in a single AWS/GCP/Azure region.\\n  - *Why 3 AZs?* Tolerates **1 AZ failure** while maintaining quorum (e.g., for databases like Aurora or etcd) and avoids split-brain scenarios.\\n  - *Cost Tradeoff*: Higher than 2-AZ but justified by the $50k/min downtime cost.\\n\\n- **Data Replication**:\\n  - **Synchronous replication** for databases (e.g., Aurora Multi-AZ, PostgreSQL with synchronous commit).\\n  - **Asynchronous replication** for non-critical data (e.g., S3 cross-region replication for backups).\\n\\n---\\n\\n### **2. Heartbeat-Based Failover**\\n- **Mechanism**:\\n  - **Heartbeat Interval**: Configure a **1-second heartbeat** (adjust based on network latency) between nodes in different AZs.\\n  - **Failure Detection**: Declare a node \\\"failed\\\" after **3 consecutive missed heartbeats** (3-second detection time).\\n  - *Example Tools*:\\n    - **AWS**: Route 53 Health Checks + Auto Scaling Groups.\\n    - **Kubernetes**: `livenessProbe` with `failureThreshold: 3`.\\n    - **Databases**: Aurora’s built-in failover or PostgreSQL with `pg_auto_failover`.\\n\\n- **Failover Process**:\\n  1. **Primary Node** (AZ1) stops responding to heartbeats.\\n  2. **Standby Node** (AZ2) promotes itself to primary after 3 missed cycles.\\n  3. **Traffic Shift**: Load balancers (e.g., ALB, NGINX) reroute traffic to the new primary.\\n  4. **Recovery**: Failed node (AZ1) reintegrates as standby once restored.\\n\\n- **Quorum Requirements**:\\n  - For **3 AZs**, ensure **2/3 nodes** are healthy to avoid split-brain (e.g., using Raft consensus for databases).\\n\\n---\\n\\n### **3. Cost-Benefit Justification**\\n- **Downtime Cost**: $50k/min → **3-second detection + 30-second failover** = ~$25k potential loss (vs. $50k/min for unplanned outages).\\n- **Infrastructure Cost**:\\n  - **3-AZ vs. 2-AZ**: ~30–50% higher (e.g., AWS Multi-AZ RDS costs 2x single-AZ).\\n  - *ROI*: Justified if downtime risk > $1M/year (e.g., 20 minutes of annual downtime).\\n\\n---\\n\\n### **4. Additional Safeguards**\\n- **Chaos Engineering**: Test failover monthly (e.g., using AWS Fault Injection Simulator).\\n- **Multi-Region DR**: For catastrophic region failures, pair with **asynchronous cross-region replication** (RPO: minutes, RTO: <1 hour).\\n- **Monitoring**: Alert on **single AZ degradation** (e.g., CloudWatch alarms for latency spikes).\\n\\n---\\n\\n### **5. Example AWS Architecture**\\n```\\n[Client] → [Route 53] → [ALB] → [EC2 (AZ1, AZ2, AZ3)]\\n                     ↓\\n[Primary RDS Aurora (AZ1)] ← Heartbeat → [Standby (AZ2, AZ3)]\\n                     ↓\\n[S3 Cross-Region Replica (DR Region)]\\n```\\n\\n---\\n\\n### **Key Metrics to Track**\\n| Metric               | Target               |\\n|----------------------|----------------------|\\n| Failover Time        | < 30 seconds         |\\n| Heartbeat Latency    | < 100ms              |\\n| AZ Failure Tolerance | 1 AZ outage          |\\n| RPO                  | 0 (synchronous)      |\\n| RTO                  | < 1 minute           |\\n\\n---\\n\\n### **Alternatives Considered**\\n- **2-AZ Design**: Cheaper but risks split-brain during network partitions.\\n- **Multi-Region Active-Active**: Higher cost/complexity; only needed for global apps.\\n\\nThis design balances **cost**, **complexity**, and **resilience** for your $50k/min downtime threshold. Would you like to dive deeper into a specific component (e.g., database failover, load balancer config)?\"}}]}"
+}

@@ -1,0 +1,11 @@
+{
+  "content": {
+    "model": "mistral-large-latest",
+    "messages": [
+      {
+        "role": "user",
+        "content": "Based on the provided context, what is the secret access code for the library basement archive in city X?"
+      }
+    ]
+  }
+}

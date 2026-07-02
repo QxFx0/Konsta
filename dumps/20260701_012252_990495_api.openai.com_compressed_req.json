@@ -1,0 +1,11 @@
+{
+  "content": {
+    "model": "x",
+    "messages": [
+      {
+        "role": "user",
+        "content": "hello"
+      }
+    ]
+  }
+}

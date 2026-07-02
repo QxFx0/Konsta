@@ -1,0 +1,11 @@
+{
+  "content": {
+    "model": "mistral-large-latest",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Distilled Context: User references “SNC: Distributed State Synchronization.”"
+      }
+    ]
+  }
+}

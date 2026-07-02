@@ -1,0 +1,32 @@
+{
+  "url": "https://api.mistral.ai/v1/chat/completions",
+  "status": 200,
+  "headers": {
+    "Date": "Mon, 29 Jun 2026 16:09:45 GMT",
+    "Content-Type": "application/json",
+    "Transfer-Encoding": "chunked",
+    "Connection": "keep-alive",
+    "mistral-correlation-id": "019f1424-a807-7eb6-9909-6249df2f0e85",
+    "x-kong-request-id": "019f1424-a807-7eb6-9909-6249df2f0e85",
+    "x-max-retry-attempts-reached": "false",
+    "x-ratelimit-limit-tokens-minute": "250000",
+    "x-ratelimit-remaining-tokens-minute": "248557",
+    "x-ratelimit-tokens-query-cost": "173",
+    "x-ratelimit-limit-req-minute": "4",
+    "x-ratelimit-remaining-req-minute": "2",
+    "x-envoy-upstream-service-time": "11032",
+    "Server": "cloudflare",
+    "access-control-allow-origin": "*",
+    "x-kong-upstream-latency": "11034",
+    "x-kong-proxy-latency": "14",
+    "cf-cache-status": "DYNAMIC",
+    "X-Content-Type-Options": "nosniff",
+    "Strict-Transport-Security": "max-age=15552000; includeSubDomains; preload",
+    "Content-Encoding": "br",
+    "CF-RAY": "a13632466f1c2dbd-ARN",
+    "alt-svc": "h3=\":443\"; ma=86400",
+    "X-Konsta-Original-Size": "80",
+    "X-Konsta-Compressed-Size": "157"
+  },
+  "content": "{\"id\":\"bbf52ebc6aae461a9a9225eb76985d08\",\"created\":1782749374,\"model\":\"mistral-large-latest\",\"usage\":{\"prompt_tokens\":19,\"total_tokens\":173,\"completion_tokens\":154,\"prompt_tokens_details\":{\"cached_tokens\":0}},\"object\":\"chat.completion\",\"choices\":[{\"index\":0,\"finish_reason\":\"stop\",\"message\":{\"role\":\"assistant\",\"tool_calls\":null,\"content\":\"Since no logs were provided, is there anything else I can assist you with?\\n\\nHere are a few ways I can help:\\n\\n1. **Troubleshooting** – Describe an issue you're facing (e.g., error messages, unexpected behavior), and I can help diagnose it.\\n2. **Best Practices** – Need advice on logging strategies, log analysis tools, or log management?\\n3. **Log Formats** – Want help structuring logs (e.g., JSON, syslog, custom formats)?\\n4. **Tools & Automation** – Recommendations for log aggregation (ELK, Splunk, Grafana Loki), monitoring, or alerting.\\n5. **General Tech Help** – Anything else related to software, DevOps, or system administration.\"}}]}"
+}

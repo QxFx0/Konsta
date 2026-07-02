@@ -1,0 +1,15 @@
+{
+  "url": "https://api.mistral.ai/v1/chat/completions",
+  "headers": {
+    "Host": "api.mistral.ai",
+    "Accept": "*/*",
+    "Accept-Encoding": "gzip, deflate, br, zstd",
+    "Connection": "keep-alive",
+    "User-Agent": "python-httpx/0.28.1",
+    "Content-Type": "application/json",
+    "Authorization": "Bearer 7kQSxl5DeEB2qWFIZqZ3k2UjbIuQdjm0",
+    "Cookie": "__cf_bm=3DYgW1bWZHNVYkqsGaV5IR3VMzgVWntdSKV8V5_O16c-1782745368.9797153-1.0.1.1-oxGWPyzutlhhtrzOQyHOC9OSe9mwmeREJ36rtwHO1kz5YeXsH9JVDB6yTRJgTk50JMZWi6cmds3fSVAMKABxW36IrtqXbDDMiOLjXErNO3s0_t8T_vu2s4e91lam1Wfd; _cfuvid=u0.qOoUAdKbAQwojcZFEw3.LmK_Ir90PfrDo2P4Fs7w-1782745368.9797153-1.0.1.1-GEuRYcCRe7VVtkSqduFCKUnbRBbcuKS3SVrnu8OlLZ8",
+    "Content-Length": "107"
+  },
+  "content": "{\"model\":\"mistral-tiny\",\"messages\":[{\"role\":\"user\",\"content\":\"это ты за какой проект?\"}]}"
+}

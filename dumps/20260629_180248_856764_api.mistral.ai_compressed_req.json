@@ -1,0 +1,11 @@
+{
+  "content": {
+    "model": "mistral-tiny",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Distilled Context: User’s message consisted solely of the text “re”."
+      }
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "content": {
+    "model": "mistral-large-latest",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Distilled Context: The Global-Data-Mesh-SNC delivers high‑availability across US‑EAST, EU‑WEST, and AP‑SOUTH, emphasizing low‑latency reads while enforcing strict write consistency."
+      }
+    ]
+  }
+}

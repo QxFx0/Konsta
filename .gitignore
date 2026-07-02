@@ -1,14 +1,20 @@
+# Python
 __pycache__/
 *.py[cod]
-.env
+*$py.class
 .venv/
 venv/
 ENV/
+env/
+.env
+
+# IDEs
 .vscode/
 .idea/
-*.pem
-*.crt
-*.key
-.cabal/
-dumps/
-.agent2048/
+
+# Konsta specific
+~/.mitmproxy/
+~/.konsta/
+/home/liskil/Konsta/dumps/
+*.log
+.test-tmp/

@@ -1,0 +1,11 @@
+{
+  "content": {
+    "model": "mistral-large-latest",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Distilled Context: The user shared a log entry stating, “the secret access code for the library basement archive in City X is 7749‑B,” and then asked for that code."
+      }
+    ]
+  }
+}

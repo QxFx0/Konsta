@@ -67,6 +67,7 @@ class Config:
     })
     proxy_port: int = 8080
     proxy_host: str = "127.0.0.1"
+    proxy_auth_token: Optional[str] = None
     llm_api_key: str = ""
     llm_model: str = "llama3.1-8b"
     llm_endpoint: str = "https://api.cerebras.ai/v1/chat/completions"
@@ -271,7 +272,8 @@ class Config:
 
         self._load_int_env("PROXY_PORT", "proxy_port", min=1, max=65535)
         self._load_str_env("PROXY_HOST", "proxy_host")
-
+        self._load_str_env("KONSTA_AUTH_TOKEN", "proxy_auth_token")
+        
         # LLM configuration — LLM_API_KEY falls back to CEREBRAS_API_KEY.
         self._load_str_env(
             "LLM_API_KEY", "llm_api_key", aliases=("CEREBRAS_API_KEY",)
@@ -328,7 +330,18 @@ class Config:
         Validates configuration parameters to ensure they are within acceptable bounds.
         """
         if not self.llm_api_key:
-            raise ValueError("LLM_API_KEY is required. Please set it via environment variable or config.")
+            raise ValueError(
+                "LLM_API_KEY is missing. The system cannot operate without a valid "
+                "API key for the distillation provider. Please set it via environment "
+                "variable LLM_API_KEY or CEREBRAS_API_KEY."
+            )
+        
+        # Basic format validation for API keys (fail-fast startup check)
+        if len(self.llm_api_key) < 16:
+            raise ValueError(
+                f"LLM_API_KEY looks too short ({len(self.llm_api_key)} chars). "
+                "Please check your configuration."
+            )
 
         if not (0.0 <= self.similarity_threshold <= 1.0):
             raise ValueError(f"similarity_threshold must be between 0.0 and 1.0, got {self.similarity_threshold}")
@@ -433,7 +446,7 @@ class Config:
     # passphrase is resolved on demand via ``resolve_ca_password``), but
     # if a future iteration stores it on the instance, it will be
     # redacted automatically.
-    _SENSITIVE_FIELDS: tuple[str, ...] = ("llm_api_key", "ca_key_password")
+    _SENSITIVE_FIELDS: tuple[str, ...] = ("llm_api_key", "ca_key_password", "proxy_auth_token")
 
     def _redacted_repr(self) -> str:
         """

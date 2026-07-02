@@ -1,0 +1,33 @@
+{
+  "url": "https://api.mistral.ai/v1/chat/completions",
+  "status": 200,
+  "headers": {
+    "Date": "Mon, 29 Jun 2026 16:02:54 GMT",
+    "Content-Type": "application/json",
+    "Transfer-Encoding": "chunked",
+    "Connection": "keep-alive",
+    "mistral-correlation-id": "019f141e-8667-76ff-9022-3de6f2a9282f",
+    "x-kong-request-id": "019f141e-8667-76ff-9022-3de6f2a9282f",
+    "x-max-retry-attempts-reached": "false",
+    "x-ratelimit-limit-tokens-minute": "250000",
+    "x-ratelimit-remaining-tokens-minute": "249907",
+    "x-ratelimit-tokens-query-cost": "93",
+    "x-ratelimit-limit-req-minute": "4",
+    "x-ratelimit-remaining-req-minute": "3",
+    "x-envoy-upstream-service-time": "1509",
+    "Server": "cloudflare",
+    "access-control-allow-origin": "*",
+    "x-kong-upstream-latency": "1510",
+    "x-kong-proxy-latency": "15",
+    "cf-cache-status": "DYNAMIC",
+    "set-cookie": "__cf_bm=I7AbkY92Rx2OybOF15uo7.ST6M5asUzukpK7UNoLuQA-1782748972.6421797-1.0.1.1-fydi1Rl6AUcruDRHXceM4BDY8TdZ5lrb7oYDOjnDL.cRilOYy6FCtb1I7yGVC8xMCeRw8F33E5m6h87SZElX0zG.wdi7I7uWzDGggKHWpX4blgZdep95M0HQRwKTajWp; HttpOnly; SameSite=None; Secure; Path=/; Domain=mistral.ai; Expires=Mon, 29 Jun 2026 16:32:54 GMT, _cfuvid=GW9LEaZP7Cmztn9UpjjJRDe.mswKsmMs_1_RjEjVoEg-1782748972.6421797-1.0.1.1-GuRnY09B3lHyPMlH_9UYUd.AhnJJ8xIk_gM70Np0_EM; HttpOnly; SameSite=None; Secure; Path=/; Domain=mistral.ai",
+    "Strict-Transport-Security": "max-age=15552000; includeSubDomains; preload",
+    "X-Content-Type-Options": "nosniff",
+    "Content-Encoding": "br",
+    "CF-RAY": "a13628770aa64434-ARN",
+    "alt-svc": "h3=\":443\"; ma=86400",
+    "X-Konsta-Original-Size": "104",
+    "X-Konsta-Compressed-Size": "192"
+  },
+  "content": "{\"id\":\"1ba0c928fe154832aea51e721f56de3d\",\"created\":1782748972,\"model\":\"mistral-large-latest\",\"usage\":{\"prompt_tokens\":26,\"total_tokens\":93,\"completion_tokens\":67,\"prompt_tokens_details\":{\"cached_tokens\":0}},\"object\":\"chat.completion\",\"choices\":[{\"index\":0,\"finish_reason\":\"stop\",\"message\":{\"role\":\"assistant\",\"tool_calls\":null,\"content\":\"I'm sorry, but I can't assist with that because the document you referenced, \\\"ARCH-DOC V4.2,\\\" appears to be confidential or proprietary. If you have specific questions about general architectural concepts or need guidance on publicly available standards, I’d be happy to help! Let me know how else I can assist.\"}}]}"
+}

@@ -1,0 +1,15 @@
+{
+  "url": "https://api.mistral.ai/v1/chat/completions",
+  "headers": {
+    "Host": "api.mistral.ai",
+    "Accept": "*/*",
+    "Accept-Encoding": "gzip, deflate, br, zstd",
+    "Connection": "keep-alive",
+    "User-Agent": "python-httpx/0.28.1",
+    "Content-Type": "application/json",
+    "Authorization": "Bearer BDmosrSiKNU0voYg93UYDKIRj6VQDI4k",
+    "Cookie": "__cf_bm=_9j8CAN7RnQgW.BQl2R74_FgnuOwSWMSkj3KWqdVNCY-1782747588.1487315-1.0.1.1-1_ZdkEud0O_RKphdq9Ut8FgQ0pyvXicaOHhjSihNJS.oUKzq2z93bTs3AqGT0bs_bRYSltRHmomnJC4luPpRlzqVRL.PlMr.PkTBLC7HvBo8zaK9oy91Ns6U7scRovKO; _cfuvid=CXhIE0feP802j3Zx4pcpst_EUHkSCfB785zHn105Z0k-1782747588.1487315-1.0.1.1-he57LdbK4cN.hvlBlPD_jfhc.zRtPXOv9Y3QnHU6.ws",
+    "Content-Length": "412"
+  },
+  "content": "{\"model\":\"mistral-large-latest\",\"messages\":[{\"role\":\"user\",\"content\":\"[CONTEXT: 2026-06-29 10:00:01 INFO: Init Diagnostics... The historical archives of City X state that the SECRET ACCESS CODE FOR THE LIBRARY BASEMENT ARCHIVE IN CITY X IS 7749-B. 2026-06-29 10:15:00 INFO: System Health OK.] QUESTION: Based on the provided context, what is the secret access code for the library basement archive in city X?\"}]}"
+}

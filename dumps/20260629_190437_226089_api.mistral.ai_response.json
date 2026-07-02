@@ -1,0 +1,32 @@
+{
+  "url": "https://api.mistral.ai/v1/chat/completions",
+  "status": 200,
+  "headers": {
+    "Date": "Mon, 29 Jun 2026 16:04:37 GMT",
+    "Content-Type": "application/json",
+    "Transfer-Encoding": "chunked",
+    "Connection": "keep-alive",
+    "mistral-correlation-id": "019f1420-0a7a-7e99-b7e4-23f20adf9243",
+    "x-kong-request-id": "019f1420-0a7a-7e99-b7e4-23f20adf9243",
+    "x-max-retry-attempts-reached": "false",
+    "x-ratelimit-limit-tokens-minute": "250000",
+    "x-ratelimit-remaining-tokens-minute": "249893",
+    "x-ratelimit-tokens-query-cost": "107",
+    "x-ratelimit-limit-req-minute": "4",
+    "x-ratelimit-remaining-req-minute": "3",
+    "x-envoy-upstream-service-time": "5107",
+    "Server": "cloudflare",
+    "access-control-allow-origin": "*",
+    "x-kong-upstream-latency": "5108",
+    "x-kong-proxy-latency": "15",
+    "cf-cache-status": "DYNAMIC",
+    "X-Content-Type-Options": "nosniff",
+    "Strict-Transport-Security": "max-age=15552000; includeSubDomains; preload",
+    "Content-Encoding": "br",
+    "CF-RAY": "a1362ae3ea3fde4e-ARN",
+    "alt-svc": "h3=\":443\"; ma=86400",
+    "X-Konsta-Original-Size": "85",
+    "X-Konsta-Compressed-Size": "219"
+  },
+  "content": "{\"id\":\"877c8f234ec2421bb025a8080b7aa565\",\"created\":1782749072,\"model\":\"mistral-large-latest\",\"usage\":{\"prompt_tokens\":28,\"total_tokens\":107,\"completion_tokens\":79,\"prompt_tokens_details\":{\"cached_tokens\":0}},\"object\":\"chat.completion\",\"choices\":[{\"index\":0,\"finish_reason\":\"stop\",\"message\":{\"role\":\"assistant\",\"tool_calls\":null,\"content\":\"Sure, I can help with that! Could you please provide more details about what you're looking for under \\\"Core Specs\\\"? For example:\\n\\n- Are these specs for a computer, smartphone, or another type of device?\\n- Do you need help listing or comparing specs (e.g., CPU, RAM, storage, etc.)?\\n- Are you looking for recommendations based on specific needs?\"}}]}"
+}

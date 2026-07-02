@@ -62,7 +62,13 @@ class LLMProcessor:
         Starts the LLM processor and its underlying queue workers.
         """
         if self._client is None:
-            self._client = httpx.AsyncClient(timeout=30.0)
+            # Enforce TLS validation and set a secure timeout.
+            # verify=True is default for httpx, but explicit setting 
+            # ensures consistency across environments.
+            self._client = httpx.AsyncClient(
+                timeout=30.0,
+                verify=True
+            )
 
         await self.queue_manager.start(self._call_cerebras_async)
         logger.info("LLMProcessor started with async queue workers.")
@@ -156,8 +162,18 @@ class LLMProcessor:
         :class:`KeyError`, or :class:`IndexError` for malformed payloads;
         callers are expected to translate those into graceful degradation.
         """
-        response_data = response.json()
-        return response_data.get("choices", [{}])[0].get("message", {}).get("content", "")
+        try:
+            response_data = response.json()
+            content = response_data.get("choices", [{}])[0].get("message", {}).get("content", "")
+            
+            # P1 Fix: Sanitize logs. Never log the raw content of the distillation.
+            # Only log the length to maintain observability without leaking data.
+            logger.debug(f"LLM returned content. Length: {len(content)} chars")
+            
+            return content
+        except Exception as e:
+            logger.error(f"Failed to parse LLM response: {e}")
+            return ""
 
     def _calculate_backoff_delay(
         self,

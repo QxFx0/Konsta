@@ -1,0 +1,14 @@
+{
+  "url": "https://api.mistral.ai/v1/chat/completions",
+  "headers": {
+    "Host": "api.mistral.ai",
+    "Accept": "*/*",
+    "Accept-Encoding": "gzip, deflate, br, zstd",
+    "Connection": "keep-alive",
+    "User-Agent": "python-httpx/0.28.1",
+    "Content-Type": "application/json",
+    "Authorization": "Bearer BDmosrSiKNU0voYg93UYDKIRj6VQDI4k",
+    "Content-Length": "179"
+  },
+  "content": "{\"model\":\"mistral-large-latest\",\"messages\":[{\"role\":\"user\",\"content\":\"Based on the provided context, what is the secret access code for the library basement archive in city X?\"}]}"
+}

@@ -1,0 +1,31 @@
+{
+  "url": "https://api.mistral.ai/v1/chat/completions",
+  "status": 200,
+  "headers": {
+    "Date": "Mon, 29 Jun 2026 15:36:41 GMT",
+    "Content-Type": "application/json",
+    "Transfer-Encoding": "chunked",
+    "Connection": "keep-alive",
+    "mistral-correlation-id": "019f1406-7fb2-7bfa-8383-968e7dcb028f",
+    "x-kong-request-id": "019f1406-7fb2-7bfa-8383-968e7dcb028f",
+    "x-max-retry-attempts-reached": "false",
+    "x-ratelimit-limit-tokens-minute": "250000",
+    "x-ratelimit-remaining-tokens-minute": "249859",
+    "x-ratelimit-tokens-query-cost": "141",
+    "x-ratelimit-limit-req-minute": "4",
+    "x-ratelimit-remaining-req-minute": "3",
+    "x-envoy-upstream-service-time": "3903",
+    "Server": "cloudflare",
+    "access-control-allow-origin": "*",
+    "x-kong-upstream-latency": "3904",
+    "x-kong-proxy-latency": "16",
+    "cf-cache-status": "DYNAMIC",
+    "set-cookie": "__cf_bm=F9PvXI85APsYIxTj1jUxcznuja2Kwehki3AwmraiFrY-1782747398.0614-1.0.1.1-pcReeM6gFjfNvb2UHXmluRqiqS33H93umIfRh6KLl6z1AWlu7szFjmkedF5IRBwdZyz_5ZSekV1I3VWvwZBgOacyM8Jv_L3MJq9Uh6izM_xGxBQozTKtDgOVc.9TM3As; HttpOnly; SameSite=None; Secure; Path=/; Domain=mistral.ai; Expires=Mon, 29 Jun 2026 16:06:41 GMT, _cfuvid=K1QLDFiasEI4luF1o0usN3BQOEN6MZ3Pqnbl.e4F5UM-1782747398.0614-1.0.1.1-B3pQh6GpcGnnrslhc_3p.RLmHb5gEuhTX8f9INkSQM8; HttpOnly; SameSite=None; Secure; Path=/; Domain=mistral.ai",
+    "Strict-Transport-Security": "max-age=15552000; includeSubDomains; preload",
+    "X-Content-Type-Options": "nosniff",
+    "Content-Encoding": "br",
+    "CF-RAY": "a1360205d9a0d9c3-ARN",
+    "alt-svc": "h3=\":443\"; ma=86400"
+  },
+  "content": "{\"id\":\"88b066d5fafa4fca9872a5cbbc57d42e\",\"created\":1782747398,\"model\":\"mistral-large-latest\",\"usage\":{\"prompt_tokens\":24,\"total_tokens\":141,\"completion_tokens\":117,\"prompt_tokens_details\":{\"cached_tokens\":0}},\"object\":\"chat.completion\",\"choices\":[{\"index\":0,\"finish_reason\":\"stop\",\"message\":{\"role\":\"assistant\",\"tool_calls\":null,\"content\":\"Without the specific \\\"provided context\\\" you're referring to, I can't determine the secret access code for the library basement archive in city X.\\n\\nIf you can share the relevant details—such as a passage, document, or clue from the context—I’d be happy to help analyze it and find the code! For example, the code might be hidden in:\\n- A book title or page number\\n- A historical date or event\\n- A cipher or pattern (e.g., numbers from a map, coordinates, or a riddle)\\n- A librarian’s hint or dialogue\"}}]}"
+}

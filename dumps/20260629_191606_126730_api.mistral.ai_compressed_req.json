@@ -1,0 +1,11 @@
+{
+  "content": {
+    "model": "mistral-large-latest",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Distilled Context: User referenced the document titled “ARCH‑DOC V4.2 – OPEN SPEC”."
+      }
+    ]
+  }
+}

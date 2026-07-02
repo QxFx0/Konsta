@@ -1,0 +1,15 @@
+{
+  "url": "https://api.mistral.ai/v1/chat/completions",
+  "headers": {
+    "Host": "api.mistral.ai",
+    "Accept": "*/*",
+    "Accept-Encoding": "gzip, deflate, br, zstd",
+    "Connection": "keep-alive",
+    "User-Agent": "python-httpx/0.28.1",
+    "Content-Type": "application/json",
+    "Authorization": "Bearer BDmosrSiKNU0voYg93UYDKIRj6VQDI4k",
+    "Cookie": "__cf_bm=4GxZAokDO7TgQ9uS..u02ebI53A.SNnrsdRcWG93efY-1782748847.5714498-1.0.1.1-MvoLQ8OWCmC9qrYVZbbQfcxYdr5NK55Y.qt3iv7EAexFvS52hUjwcx_ogcd2f8QgB16wu1ptEep5JTXH7B_kBwSVdqK5FiV9RXgbxZq4qTiTlvOKUKT38gILGR4tmZIT; _cfuvid=WIonYrYRIjtreHUytSkzW.zdHsfh8At8SedstehvZ.k-1782748847.5714498-1.0.1.1-Ux7ZBgaLRwaJ5CvIyj87EexTH6sPJr.toGEtBNUw.uo",
+    "Content-Length": "224"
+  },
+  "content": "{\"model\":\"mistral-large-latest\",\"messages\":[{\"role\":\"user\",\"content\":\"The Global-Data-Mesh-SNC ensures high-availability across US-EAST, EU-WEST, and AP-SOUTH, prioritizing low-latency reads and strict write consistency.\"}]}"
+}

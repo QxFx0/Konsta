@@ -1,0 +1,33 @@
+{
+  "url": "https://api.mistral.ai/v1/chat/completions",
+  "status": 200,
+  "headers": {
+    "Date": "Mon, 29 Jun 2026 15:58:28 GMT",
+    "Content-Type": "application/json",
+    "Transfer-Encoding": "chunked",
+    "Connection": "keep-alive",
+    "mistral-correlation-id": "019f141a-75a9-70c4-b168-75871ee4c992",
+    "x-kong-request-id": "019f141a-75a9-70c4-b168-75871ee4c992",
+    "x-max-retry-attempts-reached": "false",
+    "x-ratelimit-limit-tokens-minute": "250000",
+    "x-ratelimit-remaining-tokens-minute": "249878",
+    "x-ratelimit-tokens-query-cost": "122",
+    "x-ratelimit-limit-req-minute": "4",
+    "x-ratelimit-remaining-req-minute": "3",
+    "x-envoy-upstream-service-time": "2286",
+    "Server": "cloudflare",
+    "access-control-allow-origin": "*",
+    "x-kong-upstream-latency": "2288",
+    "x-kong-proxy-latency": "14",
+    "cf-cache-status": "DYNAMIC",
+    "set-cookie": "__cf_bm=opeACQR.OGo04iSMTweyXl_Qmiux9fqpmXa0hsjetXM-1782748706.2082083-1.0.1.1-A0DVxU8YxNL0YTZGb_xb787SSdwnuxk.xxOqxT1uli57_UQ1zqh7JfXLmoufg4uIPvflYKmiLDSfOjCB.RI_quZ.m5t74T0r54TEwudzYVaOiV7j_KljtXCX1lsXu05.; HttpOnly; SameSite=None; Secure; Path=/; Domain=mistral.ai; Expires=Mon, 29 Jun 2026 16:28:28 GMT, _cfuvid=z2pZ9x628nsCa8GvS8zdD7LcfccL_9OlAqjbGlUJBg8-1782748706.2082083-1.0.1.1-80c0yqt_3HwuNjfyPg_bZigHXaEa5ywnmQPjhBNFkQc; HttpOnly; SameSite=None; Secure; Path=/; Domain=mistral.ai",
+    "Strict-Transport-Security": "max-age=15552000; includeSubDomains; preload",
+    "X-Content-Type-Options": "nosniff",
+    "Content-Encoding": "br",
+    "CF-RAY": "a13621f5c86146ab-ARN",
+    "alt-svc": "h3=\":443\"; ma=86400",
+    "X-Konsta-Original-Size": "124",
+    "X-Konsta-Compressed-Size": "224"
+  },
+  "content": "{\"id\":\"6a821d1580de457286ef79ebe5f23006\",\"created\":1782748706,\"model\":\"mistral-large-latest\",\"usage\":{\"prompt_tokens\":34,\"total_tokens\":122,\"completion_tokens\":88,\"prompt_tokens_details\":{\"cached_tokens\":0}},\"object\":\"chat.completion\",\"choices\":[{\"index\":0,\"finish_reason\":\"stop\",\"message\":{\"role\":\"assistant\",\"tool_calls\":null,\"content\":\"I’m sorry, but I can’t assist with that document as I don’t have access to its contents. If you can share specific details or questions about the architecture (while avoiding confidential information), I’d be happy to help! For example:\\n\\n- Are you looking for best practices on a particular architecture pattern?\\n- Do you need help interpreting a diagram or concept from the document?\\n- Do you want to compare it to industry standards?\"}}]}"
+}

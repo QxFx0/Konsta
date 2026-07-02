@@ -1,0 +1,32 @@
+{
+  "url": "https://api.mistral.ai/v1/chat/completions",
+  "status": 200,
+  "headers": {
+    "Date": "Mon, 29 Jun 2026 16:23:26 GMT",
+    "Content-Type": "application/json",
+    "Transfer-Encoding": "chunked",
+    "Connection": "keep-alive",
+    "mistral-correlation-id": "019f1431-40ae-717f-a455-542cd637645f",
+    "x-kong-request-id": "019f1431-40ae-717f-a455-542cd637645f",
+    "x-max-retry-attempts-reached": "false",
+    "x-ratelimit-limit-tokens-minute": "250000",
+    "x-ratelimit-remaining-tokens-minute": "249563",
+    "x-ratelimit-tokens-query-cost": "437",
+    "x-ratelimit-limit-req-minute": "4",
+    "x-ratelimit-remaining-req-minute": "3",
+    "x-envoy-upstream-service-time": "6886",
+    "Server": "cloudflare",
+    "access-control-allow-origin": "*",
+    "x-kong-upstream-latency": "6887",
+    "x-kong-proxy-latency": "16",
+    "cf-cache-status": "DYNAMIC",
+    "X-Content-Type-Options": "nosniff",
+    "Strict-Transport-Security": "max-age=15552000; includeSubDomains; preload",
+    "Content-Encoding": "br",
+    "CF-RAY": "a136466ddba2bc2f-ARN",
+    "alt-svc": "h3=\":443\"; ma=86400",
+    "X-Konsta-Original-Size": "119",
+    "X-Konsta-Compressed-Size": "125"
+  },
+  "content": "{\"id\":\"d9b93417311f44d3b28aa0669f58cad5\",\"created\":1782750200,\"model\":\"mistral-large-latest\",\"usage\":{\"prompt_tokens\":23,\"total_tokens\":437,\"completion_tokens\":414,\"prompt_tokens_details\":{\"cached_tokens\":0}},\"object\":\"chat.completion\",\"choices\":[{\"index\":0,\"finish_reason\":\"stop\",\"message\":{\"role\":\"assistant\",\"tool_calls\":null,\"content\":\"It looks like you're monitoring an Elasticsearch (or OpenSearch) cluster and observing the following status:\\n\\n- **Nodes**: All nodes are operational (\\\"OK\\\").\\n- **Shards**: Shards 45–47 are currently syncing (likely recovering or rebalancing).\\n- **Latency**: ~12ms (network or cluster response time).\\n\\n### Possible Interpretations:\\n1. **Shard Syncing (45-47)**:\\n   - This could indicate:\\n     - A new node joining the cluster (shards are being allocated).\\n     - A recovering shard after a node restart or failure.\\n     - A rebalancing operation (e.g., due to disk space or load).\\n   - Check with:\\n     ```sh\\n     GET _cat/shards?v&h=index,shard,prirep,state,node,unassigned.reason\\n     ```\\n     or\\n     ```sh\\n     GET _cluster/allocation/explain\\n     ```\\n\\n2. **Latency (~12ms)**:\\n   - This is generally healthy for most clusters.\\n   - If latency spikes, investigate:\\n     - Network issues (between nodes or clients).\\n     - High CPU/disk I/O on nodes.\\n     - Large queries or indexing load.\\n\\n3. **Next Steps**:\\n   - **Monitor progress**: Watch shard states until they transition to `STARTED`.\\n   - **Check logs**: Look for errors in the Elasticsearch logs (`/var/log/elasticsearch/`).\\n   - **Cluster health**:\\n     ```sh\\n     GET _cluster/health?pretty\\n     ```\\n     (Look for `status: green/yellow` and `unassigned_shards`.)\\n\\n### If Shards Are Stuck:\\n- **Force allocation** (if safe):\\n  ```sh\\n  POST _cluster/reroute?retry_failed=true\\n  ```\\n- **Check disk space**:\\n  ```sh\\n  GET _cat/allocation?v\\n  ```\\n  (Low disk space can block shard allocation.)\"}}]}"
+}

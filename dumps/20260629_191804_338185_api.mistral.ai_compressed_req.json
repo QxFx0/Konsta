@@ -1,0 +1,11 @@
+{
+  "content": {
+    "model": "mistral-large-latest",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Distilled Context: Ingestion will be handled via Kafka streaming, employing horizontal scaling through partitioned topics and rack‑aware broker deployment."
+      }
+    ]
+  }
+}

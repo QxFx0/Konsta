@@ -1,0 +1,33 @@
+{
+  "url": "https://api.mistral.ai/v1/chat/completions",
+  "status": 200,
+  "headers": {
+    "Date": "Mon, 29 Jun 2026 16:00:53 GMT",
+    "Content-Type": "application/json",
+    "Transfer-Encoding": "chunked",
+    "Connection": "keep-alive",
+    "mistral-correlation-id": "019f141c-9dda-742e-97f7-251184a3e4eb",
+    "x-kong-request-id": "019f141c-9dda-742e-97f7-251184a3e4eb",
+    "x-max-retry-attempts-reached": "false",
+    "x-ratelimit-limit-tokens-minute": "250000",
+    "x-ratelimit-remaining-tokens-minute": "249719",
+    "x-ratelimit-tokens-query-cost": "281",
+    "x-ratelimit-limit-req-minute": "4",
+    "x-ratelimit-remaining-req-minute": "3",
+    "x-envoy-upstream-service-time": "6294",
+    "Server": "cloudflare",
+    "access-control-allow-origin": "*",
+    "x-kong-upstream-latency": "6296",
+    "x-kong-proxy-latency": "14",
+    "cf-cache-status": "DYNAMIC",
+    "set-cookie": "__cf_bm=4GxZAokDO7TgQ9uS..u02ebI53A.SNnrsdRcWG93efY-1782748847.5714498-1.0.1.1-MvoLQ8OWCmC9qrYVZbbQfcxYdr5NK55Y.qt3iv7EAexFvS52hUjwcx_ogcd2f8QgB16wu1ptEep5JTXH7B_kBwSVdqK5FiV9RXgbxZq4qTiTlvOKUKT38gILGR4tmZIT; HttpOnly; SameSite=None; Secure; Path=/; Domain=mistral.ai; Expires=Mon, 29 Jun 2026 16:30:53 GMT, _cfuvid=WIonYrYRIjtreHUytSkzW.zdHsfh8At8SedstehvZ.k-1782748847.5714498-1.0.1.1-Ux7ZBgaLRwaJ5CvIyj87EexTH6sPJr.toGEtBNUw.uo; HttpOnly; SameSite=None; Secure; Path=/; Domain=mistral.ai",
+    "Strict-Transport-Security": "max-age=15552000; includeSubDomains; preload",
+    "X-Content-Type-Options": "nosniff",
+    "Content-Encoding": "br",
+    "CF-RAY": "a13625694da680fa-ARN",
+    "alt-svc": "h3=\":443\"; ma=86400",
+    "X-Konsta-Original-Size": "104",
+    "X-Konsta-Compressed-Size": "110"
+  },
+  "content": "{\"id\":\"9bc44476d5dc40b3830034c6d72d4a8f\",\"created\":1782748847,\"model\":\"mistral-large-latest\",\"usage\":{\"prompt_tokens\":18,\"total_tokens\":281,\"completion_tokens\":263,\"prompt_tokens_details\":{\"cached_tokens\":0}},\"object\":\"chat.completion\",\"choices\":[{\"index\":0,\"finish_reason\":\"stop\",\"message\":{\"role\":\"assistant\",\"tool_calls\":null,\"content\":\"It appears you've shared a header or label from a document marked **\\\"ARCH-DOC V4.2 - CONFIDENTIAL\\\"**. This suggests the content is proprietary, sensitive, or restricted—likely related to architecture, engineering, corporate, or government documentation.\\n\\n### Key Considerations:\\n1. **Confidentiality**: If this document is not intended for public sharing, ensure you have the proper authorization to access or distribute it. Unauthorized handling could violate legal or organizational policies.\\n2. **Context Needed**: Without additional details, it's unclear what specific assistance you require. Are you:\\n   - Seeking guidance on handling confidential documents?\\n   - Looking for a template or structure for an \\\"ARCH-DOC\\\"?\\n   - Troubleshooting access or security protocols?\\n   - Requesting a review of the document's content (if permitted)?\\n\\n### How to Proceed:\\n- **If you’re authorized**: Clarify your question (e.g., formatting, compliance, or content-related queries).\\n- **If unauthorized**: Refrain from sharing further details and consult your organization’s data security policies.\\n\\nWould you like help with a general aspect of confidential document management (e.g., version control, redaction, or secure sharing)? Let me know how I can assist *without* compromising confidentiality.\"}}]}"
+}

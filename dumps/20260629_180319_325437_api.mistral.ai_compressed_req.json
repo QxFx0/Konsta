@@ -1,0 +1,11 @@
+{
+  "content": {
+    "model": "mistral-tiny",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Distilled Context: User asks: “Can you conduct an audit of the project?”"
+      }
+    ]
+  }
+}

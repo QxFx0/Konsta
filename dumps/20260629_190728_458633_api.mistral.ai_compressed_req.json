@@ -1,0 +1,11 @@
+{
+  "content": {
+    "model": "mistral-large-latest",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Distilled Context: The user requires a latency solution: a three‑tier caching architecture (L1 in‑memory, L2 regional Redis, L3 global) designed to keep time‑to‑first‑byte under 10 ms."
+      }
+    ]
+  }
+}
