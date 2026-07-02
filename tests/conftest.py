@@ -35,6 +35,14 @@ os.environ.setdefault("LLM_API_KEY", "test-llm-api-key")
 if os.environ.get("PYTHON_KEYRING_BACKEND") == "keyring.alt.file.PlaintextKeyring":
     os.environ.pop("PYTHON_KEYRING_BACKEND", None)
 
+# Install a null keyring backend globally so keyring.get_password() never
+# raises NoKeyringError in test environments (CI often has no backend).
+# Individual tests that need a real fake can still override via monkeypatch
+# or the fake_keyring fixture below.
+import keyring as _keyring
+from keyring.backends.null import Keyring as _NullKeyring
+_keyring.set_keyring(_NullKeyring())
+
 
 class HTTPFlow:
     """Stand-in for :class:`mitmproxy.http.HTTPFlow` used in unit tests.
