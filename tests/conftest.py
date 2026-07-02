@@ -12,6 +12,7 @@ from unittest.mock import MagicMock
 
 import keyring
 import pytest
+from keyring.backends.null import Keyring as _NullKeyring
 
 # Ensure the project root (where the `src` package lives) is importable when
 # pytest is invoked without an explicit PYTHONPATH=. This matches the layout
@@ -39,9 +40,7 @@ if os.environ.get("PYTHON_KEYRING_BACKEND") == "keyring.alt.file.PlaintextKeyrin
 # raises NoKeyringError in test environments (CI often has no backend).
 # Individual tests that need a real fake can still override via monkeypatch
 # or the fake_keyring fixture below.
-import keyring as _keyring
-from keyring.backends.null import Keyring as _NullKeyring
-_keyring.set_keyring(_NullKeyring())
+keyring.set_keyring(_NullKeyring())
 
 
 class HTTPFlow:
