@@ -63,7 +63,7 @@ class LLMProcessor:
         """
         if self._client is None:
             # Enforce TLS validation and set a secure timeout.
-            # verify=True is default for httpx, but explicit setting 
+            # verify=True is default for httpx, but explicit setting
             # ensures consistency across environments.
             self._client = httpx.AsyncClient(
                 timeout=30.0,
@@ -165,11 +165,11 @@ class LLMProcessor:
         try:
             response_data = response.json()
             content = response_data.get("choices", [{}])[0].get("message", {}).get("content", "")
-            
+
             # P1 Fix: Sanitize logs. Never log the raw content of the distillation.
             # Only log the length to maintain observability without leaking data.
             logger.debug(f"LLM returned content. Length: {len(content)} chars")
-            
+
             return content
         except Exception as e:
             logger.error(f"Failed to parse LLM response: {e}")

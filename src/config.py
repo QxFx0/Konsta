@@ -273,7 +273,7 @@ class Config:
         self._load_int_env("PROXY_PORT", "proxy_port", min=1, max=65535)
         self._load_str_env("PROXY_HOST", "proxy_host")
         self._load_str_env("KONSTA_AUTH_TOKEN", "proxy_auth_token")
-        
+
         # LLM configuration — LLM_API_KEY falls back to CEREBRAS_API_KEY.
         self._load_str_env(
             "LLM_API_KEY", "llm_api_key", aliases=("CEREBRAS_API_KEY",)
@@ -335,7 +335,7 @@ class Config:
                 "API key for the distillation provider. Please set it via environment "
                 "variable LLM_API_KEY or CEREBRAS_API_KEY."
             )
-        
+
         # Basic format validation for API keys (fail-fast startup check)
         if len(self.llm_api_key) < 16:
             raise ValueError(
